@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karina — UX & grafisk designer</title>
+  <title>Karina — UX, utvikling & grafisk designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -403,6 +403,7 @@
     /* ── Case study detail ── */
     .case-section { border-top: 1px solid var(--border); }
     .case-section:last-of-type { border-bottom: 1px solid var(--border); }
+    .case-section--alt { background: var(--bg2); }
 
     .case-header {
       padding: 5rem 0 4rem;
@@ -456,36 +457,61 @@
     }
 
     .case-body { padding: 5rem 0; }
-    .case-layout {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 4rem;
-    }
-    .case-sidebar-nav {
+    /* Sticky horisontal undermeny (full bredde — unngår overlap mot innhold) */
+    .case-subnav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 0;
       position: sticky;
-      top: 6rem;
-      height: fit-content;
+      top: 5.75rem;
+      z-index: 15;
+      background: var(--bg);
+      padding: 0.65rem 1rem;
+      margin: 0 0 2.25rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      box-shadow: 0 4px 24px rgba(28, 25, 23, 0.08);
+    }
+    .case-section--alt .case-subnav {
+      background: var(--bg2);
+      box-shadow: 0 4px 24px rgba(28, 25, 23, 0.06);
     }
     .side-link {
-      display: block;
-      font-size: .78rem;
+      display: inline-flex;
+      align-items: center;
+      font-size: .82rem;
       font-weight: 400;
       color: var(--ink3);
       text-decoration: none;
-      padding: .4rem 0;
-      border-left: 2px solid var(--border);
-      padding-left: .85rem;
-      margin-bottom: .1rem;
+      padding: .55rem 1.15rem;
+      margin: 0;
+      border-left: none;
+      border-right: 1px solid var(--border);
       letter-spacing: .02em;
-      transition: color .2s, border-color .2s;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
     }
-    .side-link:hover, .side-link.active {
+    .side-link:first-child { padding-left: .35rem; }
+    .side-link:last-child {
+      border-right: none;
+      padding-right: .35rem;
+    }
+    .side-link:hover {
       color: var(--accent);
-      border-left-color: var(--accent);
+      background: rgba(43, 84, 64, 0.06);
+    }
+    .side-link.active {
+      color: var(--accent);
+      font-weight: 500;
+      background: rgba(43, 84, 64, 0.1);
     }
 
     .case-content {}
-    .case-block { margin-bottom: 4rem; }
+    .case-block {
+      margin-bottom: 4rem;
+      scroll-margin-top: 7rem;
+    }
     .block-label {
       font-size: .72rem;
       font-weight: 500;
@@ -684,8 +710,15 @@
       section { padding: 4.5rem 0; }
       .cases-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .case-layout { grid-template-columns: 1fr; }
-      .case-sidebar-nav { display: none; }
+      .case-subnav {
+        margin-bottom: 1.75rem;
+        padding: 0.55rem 0.75rem;
+        top: 5.25rem;
+      }
+      .side-link {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.78rem;
+      }
       .hero-title { font-size: 2.2rem; }
     }
   </style>
@@ -861,9 +894,7 @@
 
     <div class="case-body">
       <div class="container">
-        <div class="case-layout">
-
-          <nav class="case-sidebar-nav">
+          <nav class="case-subnav" aria-label="Hopp til del av caset">
             <a class="side-link active" href="#g-context">Kontekst</a>
             <a class="side-link" href="#g-problem">Problem</a>
             <a class="side-link" href="#g-innsikt">Innsikt</a>
@@ -1005,13 +1036,12 @@
             </div>
 
           </div>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- CASE 2 -->
-  <section id="case-map" class="case-section" style="padding:0; background: var(--bg2)">
+  <section id="case-map" class="case-section case-section--alt" style="padding:0">
     <div class="container">
       <div class="case-header reveal">
         <p class="case-number">Prosjekt 02</p>
@@ -1040,9 +1070,7 @@
 
     <div class="case-body">
       <div class="container">
-        <div class="case-layout">
-
-          <nav class="case-sidebar-nav">
+          <nav class="case-subnav" aria-label="Hopp til del av caset">
             <a class="side-link" href="#m-context">Kontekst</a>
             <a class="side-link" href="#m-problem">Problem</a>
             <a class="side-link" href="#m-innsikt">Innsikt</a>
@@ -1170,7 +1198,6 @@
             </div>
 
           </div>
-        </div>
       </div>
     </div>
   </section>
@@ -1185,8 +1212,8 @@
         om hva dere jobber med og hva dere ser etter.
       </p>
       <div class="contact-links reveal">
-        <a class="btn btn-light" href="mailto:din@epost.no">Send meg en e-post</a>
-        <a class="btn btn-outline-light" href="https://linkedin.com/in/ditt-navn" target="_blank">LinkedIn</a>
+        <a class="btn btn-light" href="mailto:karinalyssand@live.com">Send meg en e-post</a>
+        <a class="btn btn-outline-light" href="https://www.linkedin.com/in/karina-bygstad-lyssand-676493252/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </section>
