@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karina — UX, utvikling & grafisk designer</title>
+  <title>Karina Lyssand — UX-design & frontend-utvikling</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #F6F3EE;
-      --bg2:       #EDEAE4;
-      --ink:       #1C1917;
-      --ink2:      #6B6460;
-      --ink3:      #A09B96;
-      --accent:    #2B5440;
-      --accent-lt: #EAF0EC;
-      --border:    #D8D4CE;
-      --serif:     'Lora', Georgia, serif;
-      --sans:      'DM Sans', system-ui, sans-serif;
+      --bg:         #F5F2EC;
+      --bg2:        #ECEAE3;
+      --bg3:        #E2DFD8;
+      --ink:        #18160F;
+      --ink2:       #645E55;
+      --ink3:       #9C9589;
+      --accent:     #1E4D38;
+      --accent2:    #C5A35A;
+      --accent-lt:  #E8F0EB;
+      --border:     #D5D1CA;
+      --white:      #FDFBF7;
+      --serif:      'Lora', Georgia, serif;
+      --sans:       'DM Sans', system-ui, sans-serif;
+      --body:       'DM Sans', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -29,36 +33,57 @@
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: var(--sans);
+      font-family: var(--body);
       font-weight: 300;
       font-size: 16px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── Nav ── */
+    /* grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: .5;
+    }
+
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 500;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(246,243,238,0.88);
-      backdrop-filter: blur(12px);
+      padding: 1.5rem 3rem;
+      mix-blend-mode: normal;
+      transition: background .4s, padding .3s, border-color .3s;
       border-bottom: 1px solid transparent;
-      transition: border-color .3s;
     }
-    nav.scrolled { border-bottom-color: var(--border); }
-
+    nav.scrolled {
+      background: rgba(245,242,236,.92);
+      backdrop-filter: blur(16px);
+      padding: 1rem 3rem;
+      border-bottom-color: var(--border);
+    }
     .nav-logo {
       font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 500;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--ink);
       text-decoration: none;
-      letter-spacing: .01em;
+      letter-spacing: -.01em;
+    }
+    .nav-logo span { color: var(--accent2); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
     }
     .nav-links {
       display: flex;
@@ -66,45 +91,42 @@
       list-style: none;
     }
     .nav-links a {
-      font-size: .85rem;
-      font-weight: 400;
+      font-family: var(--sans);
+      font-size: .75rem;
+      font-weight: 600;
       color: var(--ink2);
       text-decoration: none;
-      letter-spacing: .04em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       transition: color .2s;
     }
     .nav-links a:hover { color: var(--ink); }
-
-    /* ── Layout helpers ── */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2.5rem;
+    .nav-cv {
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all .2s;
     }
-    section { padding: 7rem 0; }
+    .nav-cv:hover { background: var(--accent); color: var(--white); }
 
-    /* ── Reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ── Hero ── */
+    /* ─── HERO ─── */
     #hero {
       min-height: 100vh;
       display: grid;
       grid-template-rows: 1fr auto;
-      padding: 6rem 0 0;
+      padding-top: 6rem;
       position: relative;
       overflow: hidden;
       background: var(--bg);
     }
+
     .hero-inner {
       max-width: 1200px;
       margin: 0 auto;
@@ -115,6 +137,7 @@
       justify-content: center;
       gap: 0;
     }
+
     .hero-eyebrow {
       font-family: var(--sans);
       font-size: .72rem;
@@ -126,15 +149,18 @@
       opacity: 0;
       animation: slideIn .6s .1s cubic-bezier(.16,1,.3,1) forwards;
     }
+
     .hero-title {
       font-family: var(--serif);
       font-size: clamp(3rem, 6.5vw, 6.5rem);
       font-weight: 700;
-      line-height: 1.12;
+      line-height: 1.05;
       letter-spacing: -.02em;
       color: var(--ink);
       margin-bottom: 0;
     }
+
+    /* Static lines */
     .hero-title-line {
       display: block;
       opacity: 0;
@@ -143,25 +169,12 @@
     }
     .hero-title-line:nth-child(1) { animation-delay: .2s; }
     .hero-title-line:nth-child(2) { animation-delay: .35s; }
-    /* Rad 2: «gjort» + grønt ord på samme baseline (inline-block+overflow ellers hopper) */
-    .hero-title-line--row {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: baseline;
-      gap: 0.28em;
-    }
-    .hero-title-prefix {
-      color: inherit;
-      flex-shrink: 0;
-    }
+
+    /* Cycling word container */
     .hero-word-wrap {
       display: inline-block;
       overflow: hidden;
-      flex: 0 1 auto;
-      min-width: 0;
-      /* Luft under: overflow:hidden + trang line-height klippet descenders (g, .) */
-      padding-bottom: 0.28em;
-      line-height: 1.25;
+      vertical-align: bottom;
       opacity: 0;
       animation: slideIn .001s .5s forwards;
     }
@@ -169,8 +182,6 @@
       display: block;
       color: var(--accent);
       font-style: italic;
-      line-height: 1.25;
-      padding-bottom: 0.06em;
       animation: none;
       transform: translateY(0);
       transition: transform .5s cubic-bezier(.76,0,.24,1), opacity .4s ease;
@@ -188,8 +199,9 @@
       transform: translateY(0);
       opacity: 1;
     }
+
     .hero-sub {
-      font-family: var(--sans);
+      font-family: var(--body);
       font-size: 1rem;
       font-weight: 300;
       color: var(--ink2);
@@ -199,6 +211,7 @@
       opacity: 0;
       animation: slideIn .6s .65s cubic-bezier(.16,1,.3,1) forwards;
     }
+
     .hero-cta-row {
       display: flex;
       align-items: center;
@@ -207,12 +220,33 @@
       opacity: 0;
       animation: slideIn .6s .8s cubic-bezier(.16,1,.3,1) forwards;
     }
-    .btn-arrow::after {
-      content: ' →';
-      margin-left: 0.2em;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: 0.75rem 2rem;
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all .25s;
     }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #122d21; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,77,56,.25); }
+    .btn-ghost {
+      color: var(--ink2);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--ink2); color: var(--ink); }
+    .btn-arrow::after { content: '→'; font-size: 1em; }
 
-    /* ── Ticker ── */
+    /* ─── TICKER ─── */
     .hero-bottom {
       max-width: 100%;
       border-top: 1px solid var(--border);
@@ -244,577 +278,1062 @@
     }
     .ticker-item::after {
       content: '·';
-      color: var(--accent);
+      color: var(--accent2);
       font-size: 1rem;
     }
     @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
-    .btn {
-      display: inline-block;
-      padding: .7rem 1.6rem;
-      border-radius: 2px;
-      font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .03em;
-      text-decoration: none;
-      transition: all .2s;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-primary:hover { background: #1f3e2e; }
-    .btn-ghost {
-      border: 1px solid var(--border);
-      color: var(--ink);
-      background: transparent;
-    }
-    .btn-ghost:hover { border-color: var(--ink2); }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 2.5rem;
+    .hero-available {
       display: flex;
       align-items: center;
-      gap: .6rem;
-      font-size: .75rem;
-      font-weight: 400;
-      color: var(--ink3);
-      letter-spacing: .06em;
+      gap: .5rem;
+      font-family: var(--sans);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp .5s .9s forwards;
+      color: var(--accent);
     }
-    .hero-scroll::before {
+    .hero-available::before {
       content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--ink3);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(30,77,56,.15);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(30,77,56,.15); }
+      50% { box-shadow: 0 0 0 6px rgba(30,77,56,.08); }
     }
 
-    /* ── Cases grid ── */
-    #cases { background: var(--bg); }
-    .cases-label {
-      font-size: .78rem;
-      font-weight: 500;
-      letter-spacing: .1em;
+    /* ─── SECTION COMMON ─── */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 7rem 3rem;
+    }
+    .section-label {
+      font-family: var(--sans);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--ink3);
       margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
     }
-    .cases-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+    .section-label::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 48px;
+      background: var(--border);
     }
 
-    .case-card {
-      background: var(--bg2);
+    /* ─── CASES ─── */
+    #cases { background: var(--bg); }
+
+    .cases-grid-new {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .case-card-new {
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 8px;
       overflow: hidden;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform .3s, box-shadow .3s;
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
     }
-    .case-card:hover {
+    .case-card-new:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(28,25,23,.08);
+      box-shadow: 0 16px 48px rgba(24,22,15,.08);
     }
-    .case-card-img {
-      width: 100%;
+
+    .case-card-visual-new {
       aspect-ratio: 16/9;
-      background: var(--accent-lt);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .75rem;
-      color: var(--accent);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-weight: 500;
-      position: relative;
       overflow: hidden;
     }
-    /* Placeholder visuals for cards */
-    .case-card-img.card-glex { background: linear-gradient(135deg, #EAF0EC 0%, #D0E3D7 100%); }
-    .case-card-img.card-map  { background: linear-gradient(135deg, #E8EDF5 0%, #C8D4E8 100%); }
-
-    .mock-browser {
+    .case-card-num {
       position: absolute;
-      inset: 1.5rem;
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 4px 24px rgba(0,0,0,.12);
-      overflow: hidden;
-    }
-    .mock-bar {
-      height: 28px;
-      background: #f0f0f0;
-      border-bottom: 1px solid #e0e0e0;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      gap: 5px;
-    }
-    .mock-dot { width: 7px; height: 7px; border-radius: 50%; }
-    .mock-dot:nth-child(1) { background: #ff5f56; }
-    .mock-dot:nth-child(2) { background: #ffbd2e; }
-    .mock-dot:nth-child(3) { background: #27c93f; }
-    .mock-content { padding: 12px; }
-    .mock-nav-strip { height: 8px; background: #1C1917; border-radius: 2px; margin-bottom: 10px; }
-    .mock-hero-block { height: 42px; background: linear-gradient(90deg,#2B5440,#3a7358); border-radius: 3px; margin-bottom: 8px; }
-    .mock-row { display: flex; gap: 6px; margin-bottom: 6px; }
-    .mock-chip { height: 20px; flex: 1; background: #EAF0EC; border-radius: 2px; }
-    .mock-chip.dark { background: #D0E3D7; }
-
-    .mock-map {
-      position: absolute;
-      inset: 1.5rem;
-      background: #1a2535;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,.2);
-    }
-    .mock-map-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 40% 50%, rgba(43,84,64,.4) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(30,60,100,.4) 0%, transparent 40%);
-    }
-    .mock-sidebar {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 35%;
-      background: rgba(255,255,255,.07);
-      backdrop-filter: blur(4px);
-      border-left: 1px solid rgba(255,255,255,.1);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .mock-sidebar-row { height: 14px; background: rgba(255,255,255,.12); border-radius: 2px; }
-    .mock-sidebar-row.short { width: 60%; }
-    .mock-pin {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #7ECBA0;
-      box-shadow: 0 0 6px #7ECBA0;
-    }
-
-    .case-card-body { padding: 1.5rem; }
-    .case-tag {
+      top: 1rem;
+      left: 1.25rem;
+      font-family: var(--sans);
       font-size: .72rem;
       font-weight: 500;
+      color: rgba(255,255,255,.3);
       letter-spacing: .08em;
+    }
+
+    .case-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-card-info {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+    .case-card-tag {
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: .6rem;
+      margin-bottom: .4rem;
     }
-    .case-title {
+    .case-card-title {
       font-family: var(--serif);
-      font-size: 1.3rem;
+      font-size: 1.05rem;
       font-weight: 500;
-      line-height: 1.3;
-      margin-bottom: .5rem;
       color: var(--ink);
+      line-height: 1.35;
     }
-    .case-desc {
-      font-size: .9rem;
+    .case-card-cta {
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color .2s;
+    }
+    .case-card-new:hover .case-card-cta { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .cases-grid-new { grid-template-columns: 1fr; }
+    }
+
+    .visual-glex-hero {
+      background: linear-gradient(135deg, #1a1208 0%, #1E4D38 100%);
+    }
+    .visual-map-hero {
+      background: linear-gradient(135deg, #0d1825 0%, #1a3a5c 100%);
+    }
+
+    /* mini mockup i case-kort */
+    .mini-screen {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .mini-topbar {
+      height: 22px;
+      background: rgba(255,255,255,.04);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 4px;
+    }
+    .mini-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .mini-dot:nth-child(1) { background: rgba(255,95,86,.6); }
+    .mini-dot:nth-child(2) { background: rgba(255,189,46,.6); }
+    .mini-dot:nth-child(3) { background: rgba(39,201,63,.6); }
+    .mini-body { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .mini-nav { height: 6px; background: rgba(255,255,255,.15); border-radius: 1px; }
+    .mini-hero-block { height: 32px; background: linear-gradient(90deg, rgba(30,77,56,.8), rgba(58,115,88,.6)); border-radius: 2px; }
+    .mini-row { display: flex; gap: 5px; }
+    .mini-chip { height: 14px; flex: 1; border-radius: 1px; background: rgba(255,255,255,.08); }
+    .mini-chip.c2 { background: rgba(197,163,90,.2); }
+
+    .mini-map-bg {
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 35% 55%, rgba(30,77,56,.5) 0%, transparent 45%),
+        radial-gradient(circle at 65% 35%, rgba(30,60,100,.4) 0%, transparent 40%);
+      position: relative;
+    }
+    .map-pin {
+      position: absolute;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #7ECBA0;
+      box-shadow: 0 0 8px #7ECBA0;
+    }
+    .mini-panel {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 32%;
+      background: rgba(255,255,255,.06);
+      border-left: 1px solid rgba(255,255,255,.1);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .panel-row { height: 10px; background: rgba(255,255,255,.1); border-radius: 1px; }
+    .panel-row.s { width: 55%; }
+
+    /* ─── ABOUT — tre lyse bento-bokser ─── */
+    #about {
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .about-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+    .about-bento .bento-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: box-shadow .25s ease, border-color .2s;
+    }
+    .about-bento .bento-card:hover {
+      box-shadow: 0 12px 40px rgba(24, 22, 15, .07);
+      border-color: rgba(213, 209, 202, .95);
+    }
+    .bento-profile-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .bento-photo-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg2);
+    }
+    .bento-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bento-card-name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .bento-card-role {
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-top: .25rem;
+    }
+    .bento-card-bio {
+      font-family: var(--body);
+      font-size: .88rem;
+      color: var(--ink2);
+      line-height: 1.75;
+      margin: 0;
+    }
+    .bento-card-label {
+      font-family: var(--sans);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 0 0 .35rem;
+    }
+    .bento-quote-mark {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--accent2);
+      line-height: 1;
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .bento-quote-text {
+      font-family: var(--serif);
+      font-size: .98rem;
+      font-style: italic;
       color: var(--ink2);
       line-height: 1.65;
-      margin-bottom: 1.2rem;
+      margin: 0;
     }
-    .case-link {
-      font-size: .8rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: .02em;
+    .bento-skill-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
     }
-    .case-link::after { content: ' →'; }
-
-    /* ── About ── */
-    #about { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-left {}
-    .about-eyebrow {
+    .bento-skill-item {
+      font-family: var(--sans);
       font-size: .78rem;
       font-weight: 500;
-      letter-spacing: .1em;
+      color: var(--ink2);
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
+    }
+    .bento-skill-item:last-child { border-bottom: none; }
+    .bento-skill-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── CASE STUDY ENHANCED COMPONENTS ─── */
+    .phase-label {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .ba-panel { padding: 1rem; display: flex; flex-direction: column; gap: 6px; }
+    .ba-panel.old { background: var(--bg3); }
+    .ba-panel.new { background: var(--bg2); border-left: 1px solid var(--border); }
+    .ba-badge {
+      font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 1px; width: fit-content; margin-bottom: 4px;
+    }
+    .ba-badge.b { background: #c8c4bd; color: #4a4642; }
+    .ba-badge.a { background: var(--accent); color: #fff; }
+    .ba-nav-strip { height: 5px; border-radius: 1px; }
+    .ba-nav-strip.dark { background: var(--accent); }
+    .ba-nav-strip.light { background: rgba(0,0,0,.1); }
+    .ba-block { height: 22px; border-radius: 2px; }
+    .ba-block.old-b { background: rgba(0,0,0,.07); }
+    .ba-block.new-b { background: linear-gradient(90deg, var(--accent), #2a6b50); }
+    .ba-row-mini { display: flex; gap: 4px; }
+    .ba-chip-mini { height: 11px; flex: 1; border-radius: 1px; background: rgba(0,0,0,.06); }
+    .ba-chip-mini.g { background: rgba(30,77,56,.15); }
+    .ba-shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin-top: .35rem;
+      background: var(--bg);
+    }
+    .ba-caption { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+    .ba-cap-txt { font-size: .7rem; color: var(--ink3); padding: .5rem .75rem; line-height: 1.4; }
+    .ba-cap-txt:first-child { border-right: 1px solid var(--border); }
+
+    .process-phases { display: flex; flex-direction: column; gap: 2rem; }
+    .phase-steps { display: flex; flex-direction: column; }
+    .phase-step {
+      display: flex; gap: 1rem; padding: .75rem 0;
+      border-bottom: 1px solid var(--border); align-items: flex-start;
+    }
+    .phase-step:last-child { border-bottom: none; }
+    .phase-step-num {
+      font-size: .7rem; font-weight: 700; color: var(--accent);
+      background: var(--accent-lt); width: 22px; height: 22px;
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .phase-step-title { font-size: .9rem; font-weight: 500; color: var(--ink); margin-bottom: .2rem; }
+    .phase-step-desc { font-size: .85rem; color: var(--ink2); line-height: 1.65; }
+
+    .artifact-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden; margin-top: 1rem;
+    }
+    .artifact-card-header {
+      padding: .6rem 1rem; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .artifact-card-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink3);
+    }
+    .artifact-card-phase {
+      font-size: .62rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .artifact-card-body { padding: .875rem 1rem; }
+    .wireframe-shot {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      display: block;
+      background: var(--bg);
+    }
+    .wireframe-note {
+      font-size: .72rem;
+      color: var(--ink3);
+      line-height: 1.5;
+      margin-top: .65rem;
+    }
+
+    .comp-analysis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .comp-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: .5rem .625rem;
+    }
+    .comp-item-name { font-size: .78rem; font-weight: 500; color: var(--ink); margin-bottom: .4rem; }
+    .comp-bar-row { display: flex; flex-direction: column; gap: 3px; margin-bottom: .25rem; }
+    .comp-bar { height: 3px; border-radius: 1px; }
+    .comp-bar.full { background: var(--accent); width: 100%; }
+    .comp-bar.mid { background: var(--accent); width: 65%; }
+    .comp-bar.low { background: var(--border); width: 40%; }
+    .comp-item-tag { font-size: .65rem; color: var(--ink3); }
+
+    .audit-rows { display: flex; flex-direction: column; gap: 6px; }
+    .audit-row { display: flex; align-items: center; gap: 10px; }
+    .audit-label { font-size: .75rem; color: var(--ink2); width: 120px; flex-shrink: 0; }
+    .audit-bar-wrap {
+      flex: 1; height: 8px; background: var(--bg);
+      border-radius: 2px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .audit-bar { height: 100%; border-radius: 2px; }
+    .audit-bar.red { background: #e24b4a; }
+    .audit-bar.amber { background: #ba7517; }
+    .audit-note { font-size: .68rem; color: var(--ink3); width: 80px; flex-shrink: 0; }
+
+    .audience-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .audience-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: .75rem;
+    }
+    .audience-card-title { font-size: .85rem; font-weight: 500; color: var(--ink); margin-bottom: .35rem; }
+    .audience-card-roles {
+      font-size: .65rem; background: var(--accent-lt); color: var(--accent);
+      padding: 2px 7px; border-radius: 2px; display: inline-block; margin-bottom: .4rem;
+    }
+    .audience-card-need { font-size: .78rem; color: var(--ink2); line-height: 1.5; }
+
+    .nav-concepts { display: flex; flex-direction: column; gap: 6px; }
+    .nav-concept {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: .5rem .75rem;
+    }
+    .nav-concept.chosen { border-color: var(--accent); }
+    .nav-concept-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem;
+    }
+    .nav-concept-name { font-size: .78rem; font-weight: 500; color: var(--ink); }
+    .nav-chosen-badge {
+      font-size: .6rem; font-weight: 700; background: var(--accent);
+      color: #fff; padding: 1px 6px; border-radius: 1px;
+    }
+    .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .nav-pill-item {
+      font-size: .68rem; background: var(--bg2); color: var(--ink2);
+      padding: 2px 7px; border-radius: 2px; border: 1px solid var(--border);
+    }
+    .nav-pill-item.active { background: var(--accent-lt); color: var(--accent); border-color: var(--accent); }
+    .concept-visual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: .85rem;
+    }
+    .concept-visual {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: .55rem;
+    }
+    .concept-visual.chosen {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px rgba(30,77,56,.1);
+    }
+    .concept-shot {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .concept-caption {
+      font-size: .68rem;
+      color: var(--ink2);
+      line-height: 1.45;
+      margin-top: .45rem;
+    }
+
+    .annotation-layout { display: grid; grid-template-columns: 1fr 200px; gap: 1rem; margin-top: 1rem; }
+    .annotation-screen {
+      background: #1a1208; border-radius: 6px; overflow: hidden;
+    }
+    .ann-topbar {
+      height: 18px; background: #111; display: flex;
+      align-items: center; padding: 0 8px; gap: 4px;
+    }
+    .ann-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .ann-body { padding: 10px; display: flex; flex-direction: column; gap: 5px; position: relative; }
+    .ann-navstrip { height: 5px; background: var(--accent); border-radius: 1px; }
+    .ann-hero-block { height: 28px; background: linear-gradient(90deg, var(--accent), #2a6b50); border-radius: 2px; }
+    .ann-row { display: flex; gap: 4px; }
+    .ann-c { height: 12px; flex: 1; border-radius: 1px; background: rgba(255,255,255,.07); }
+    .ann-c.g { background: rgba(30,77,56,.35); }
+    .ann-callout {
+      position: absolute; background: var(--white); border: 1px solid var(--accent);
+      border-radius: 3px; padding: 2px 7px; font-size: .65rem; color: var(--accent);
+      font-weight: 500; white-space: nowrap; font-family: var(--sans);
+    }
+    .annotation-notes { display: flex; flex-direction: column; gap: 8px; }
+    .annotation-note {
+      border: 1px solid var(--border); border-left: 2px solid var(--accent);
+      border-radius: 0 4px 4px 0; padding: .5rem .75rem; background: var(--bg2);
+    }
+    .annotation-note-title { font-size: .72rem; font-weight: 500; color: var(--accent); margin-bottom: .2rem; }
+    .annotation-note-text { font-size: .72rem; color: var(--ink2); line-height: 1.45; }
+    .solution-visuals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 1.25rem;
+    }
+    .solution-shot-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+    .solution-shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+    .solution-shot-caption {
+      padding: .6rem .75rem;
+      border-top: 1px solid var(--border);
+      font-size: .72rem;
+      color: var(--ink2);
+      line-height: 1.45;
+    }
+    .process-shot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 1.25rem;
+    }
+    .process-shot-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+    .process-shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+    .process-shot-caption {
+      padding: .55rem .7rem;
+      border-top: 1px solid var(--border);
+      font-size: .7rem;
+      color: var(--ink2);
+      line-height: 1.45;
+    }
+
+    .reflection-box {
+      background: var(--bg2); border-radius: 4px; padding: 1rem 1.25rem; margin-top: 1rem;
+    }
+    .reflection-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem;
+    }
+    .reflection-text { font-size: .93rem; color: var(--ink2); line-height: 1.75; }
+
+    /* ─── CASE STUDY SECTIONS ─── */
+    .case-section-full {
+      border-top: 1px solid var(--border);
+    }
+    .case-section-full.alt {
+      background: var(--bg2);
+    }
+
+    .case-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-hero-num {
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--ink3);
       margin-bottom: 1.5rem;
     }
-    .about-heading {
+    .case-hero-title {
       font-family: var(--serif);
-      font-size: 2.1rem;
-      font-weight: 500;
-      line-height: 1.25;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
       color: var(--ink);
+      max-width: 780px;
+      margin-bottom: 1.5rem;
     }
-    .about-heading em { font-style: italic; color: var(--accent); }
-    .about-right {}
-    .about-text {
+    .case-hero-title em { font-style: italic; color: var(--accent); }
+    .case-hero-sub {
+      font-family: var(--body);
       font-size: 1rem;
       color: var(--ink2);
-      line-height: 1.85;
-      margin-bottom: 1.4rem;
+      max-width: 520px;
+      line-height: 1.8;
     }
-    .about-tags {
+    .case-meta-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-top: 2rem;
-    }
-    .tag {
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .04em;
-      padding: .3rem .8rem;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--ink2);
-      background: var(--bg);
-    }
-
-    /* ── Case study detail ── */
-    .case-section { border-top: 1px solid var(--border); }
-    .case-section:last-of-type { border-bottom: 1px solid var(--border); }
-    .case-section--alt { background: var(--bg2); }
-
-    .case-header {
-      padding: 5rem 0 4rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .case-number {
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 1.2rem;
-    }
-    .case-big-title {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.15;
-      color: var(--ink);
-      max-width: 700px;
-      margin-bottom: 1.25rem;
-    }
-    .case-big-title em { font-style: italic; color: var(--accent); }
-    .case-subtitle {
-      font-size: 1.05rem;
-      color: var(--ink2);
-      max-width: 540px;
-      line-height: 1.7;
-    }
-    .case-meta {
-      display: flex;
-      gap: 3rem;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
+      gap: 0;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
       border-top: 1px solid var(--border);
       flex-wrap: wrap;
     }
-    .case-meta-item {}
-    .case-meta-label {
-      font-size: .7rem;
-      font-weight: 500;
-      letter-spacing: .1em;
+    .case-meta-item {
+      padding-right: 3rem;
+      margin-right: 3rem;
+      border-right: 1px solid var(--border);
+    }
+    .case-meta-item:last-child { border-right: none; }
+    .meta-label {
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: .25rem;
+      margin-bottom: 0.25rem;
     }
-    .case-meta-value {
-      font-size: .9rem;
-      font-weight: 400;
+    .meta-value {
+      font-family: var(--body);
+      font-size: .88rem;
       color: var(--ink);
     }
-
-    .case-body { padding: 5rem 0; }
-
-    /* Sticky subnav — minimal underline style */
-    .case-subnav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0;
-      position: sticky;
-      top: 4rem;
-      z-index: 15;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      margin: 0 0 3.5rem;
-      padding: 0;
-    }
-    .case-section--alt .case-subnav {
-      background: var(--bg2);
-    }
-    .side-link {
+    .proto-btn {
       display: inline-flex;
       align-items: center;
-      font-size: .78rem;
-      font-weight: 400;
-      color: var(--ink3);
-      text-decoration: none;
-      padding: .9rem 1.25rem;
-      letter-spacing: .05em;
+      gap: .5rem;
+      font-family: var(--sans);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color .2s, border-color .2s;
-      white-space: nowrap;
-    }
-    .side-link:first-child { padding-left: 0; }
-    .side-link:hover { color: var(--ink); }
-    .side-link.active {
       color: var(--accent);
-      font-weight: 500;
-      border-bottom-color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .proto-btn:hover { background: var(--accent); color: var(--white); }
+
+    /* ─── VERTICAL TIMELINE LAYOUT ─── */
+    .case-content-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 5rem;
+      align-items: start;
     }
 
-    .case-content {}
-    .case-block {
-      margin-bottom: 4rem;
-      scroll-margin-top: 7rem;
+    /* Sticky vertical timeline */
+    .timeline-nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
     }
-    .block-label {
-      font-size: .72rem;
-      font-weight: 500;
+    .tl-track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 70vh;
+      width: 100%;
+    }
+    .tl-track::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      bottom: 16px;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .tl-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .7rem;
+      color: var(--ink3);
+      transition: all .25s;
+      z-index: 1;
+    }
+    .case-section-full.alt .tl-icon { background: var(--bg2); }
+    .tl-item:hover .tl-icon,
+    .tl-item.active .tl-icon {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+    }
+    .tl-num {
+      font-family: var(--sans);
+      font-size: .58rem;
+      font-weight: 700;
       letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      line-height: 1;
+      margin-bottom: .1rem;
+    }
+    .tl-label {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--ink2);
+      transition: color .2s;
+    }
+    .tl-item:hover .tl-label,
+    .tl-item.active .tl-label { color: var(--accent); }
+
+    /* ─── CASE BODY CONTENT ─── */
+    .case-block {
+      margin-bottom: 5rem;
+      scroll-margin-top: 6rem;
+    }
+    .case-block:last-child { margin-bottom: 0; }
+    .block-eyebrow {
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .block-eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--accent);
     }
     .block-title {
       font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-size: 1.6rem;
+      font-weight: 700;
       color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 1rem;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
     }
     .block-text {
-      font-size: .97rem;
+      font-family: var(--body);
+      font-size: .96rem;
       color: var(--ink2);
-      line-height: 1.85;
+      line-height: 1.9;
       margin-bottom: 1rem;
     }
 
-    .insight-box {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 0 3px 3px 0;
+    .pull-quote {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 3px solid var(--accent2);
+      background: rgba(197,163,90,.05);
     }
-    .insight-box p {
+    .pull-quote p {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-style: italic;
       color: var(--ink);
       line-height: 1.6;
     }
 
-    .process-steps {
+    .process-list {
+      margin: 2rem 0;
       display: flex;
       flex-direction: column;
       gap: 0;
-      margin: 1.5rem 0;
     }
-    .process-step {
+    .process-item {
       display: flex;
-      gap: 1.25rem;
-      align-items: flex-start;
-      padding: .9rem 0;
+      gap: 1rem;
+      padding: 1rem 0;
       border-bottom: 1px solid var(--border);
+      align-items: flex-start;
     }
-    .process-step:last-child { border-bottom: none; }
-    .step-num {
-      font-size: .7rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-lt);
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .process-item:last-child { border-bottom: none; }
+    .p-num {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent2);
       flex-shrink: 0;
+      width: 24px;
       margin-top: 2px;
-      letter-spacing: 0;
     }
-    .step-text {
-      font-size: .92rem;
+    .p-text {
+      font-family: var(--body);
+      font-size: .93rem;
       color: var(--ink2);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* placeholder image blocks */
+    /* Placeholder visual blocks */
     .case-visual {
       margin: 2.5rem 0;
-      background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 3px;
       aspect-ratio: 16/8;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--ink3);
-      font-size: .78rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-weight: 500;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
-    .visual-label {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      background: rgba(246,243,238,.9);
+    .case-visual-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .vis-placeholder {
+      font-family: var(--sans);
       font-size: .65rem;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       color: var(--ink3);
-      padding: .25rem .6rem;
-      border-radius: 2px;
-      letter-spacing: .06em;
+    }
+    .vis-label {
+      position: absolute;
+      bottom: .75rem;
+      left: .75rem;
+      font-family: var(--sans);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .08em;
       text-transform: uppercase;
+      color: var(--ink3);
+      background: rgba(245,242,236,.9);
+      padding: .2rem .5rem;
+      border-radius: 1px;
     }
-    .visual-glex {
-      background: linear-gradient(135deg, #1C1917 0%, #2B5440 100%);
-      color: rgba(255,255,255,.2);
+    .vis-dark {
+      background: linear-gradient(135deg, #18160F 0%, #1E4D38 100%);
     }
-    .visual-nav {
-      background: linear-gradient(135deg, #EAF0EC 0%, #D0E3D7 100%);
+    .vis-dark .vis-placeholder { color: rgba(255,255,255,.2); }
+    .vis-dark .vis-label { background: rgba(24,22,15,.7); color: rgba(255,255,255,.4); }
+    .vis-light {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
     }
-    .visual-map-full {
-      background: linear-gradient(135deg, #1a2535 0%, #0f1820 100%);
-      color: rgba(255,255,255,.15);
+    .vis-map {
+      background: linear-gradient(135deg, #0d1825 0%, #1a3a5c 100%);
     }
+    .vis-map .vis-placeholder { color: rgba(255,255,255,.15); }
+    .vis-map .vis-label { background: rgba(13,24,37,.7); color: rgba(255,255,255,.4); }
 
-    /* ── Contact ── */
+    /* ─── CONTACT ─── */
     #contact {
-      text-align: center;
-      background: var(--ink);
-      color: #fff;
-      border-top: none;
+      border-top: 1px solid var(--border);
     }
-    #contact .container {
-      max-width: 600px;
-    }
-    .contact-eyebrow {
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-      margin-bottom: 1.5rem;
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 7rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: end;
     }
     .contact-heading {
       font-family: var(--serif);
-      font-size: 2.6rem;
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 1.25rem;
-      color: #fff;
-    }
-    .contact-heading em { font-style: italic; color: #7ECBA0; }
-    .contact-text {
-      font-size: .97rem;
-      color: rgba(255,255,255,.55);
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-    }
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .btn-light {
-      background: #fff;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
       color: var(--ink);
-      padding: .75rem 1.8rem;
+      margin-bottom: 1.5rem;
     }
-    .btn-light:hover { background: #e8e8e8; }
-    .btn-outline-light {
-      border: 1px solid rgba(255,255,255,.25);
-      color: rgba(255,255,255,.8);
-      padding: .75rem 1.8rem;
+    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-text {
+      font-family: var(--body);
+      font-size: .97rem;
+      color: var(--ink2);
+      line-height: 1.8;
+      max-width: 420px;
     }
-    .btn-outline-light:hover { border-color: rgba(255,255,255,.6); color: #fff; }
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.75rem;
+      border: 1.5px solid var(--border);
+      text-decoration: none;
+      color: var(--ink);
+      transition: all .25s;
+      border-radius: 2px;
+    }
+    .contact-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+    }
+    .contact-btn-label {
+      font-family: var(--sans);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .contact-btn-sub {
+      font-family: var(--body);
+      font-size: .82rem;
+      color: var(--ink2);
+      margin-top: .15rem;
+      transition: color .25s;
+    }
+    .contact-btn:hover .contact-btn-sub { color: rgba(255,255,255,.7); }
+    .contact-btn-arrow { font-size: 1.1rem; flex-shrink: 0; }
 
-    /* ── Footer ── */
+    /* ─── FOOTER ─── */
     footer {
       background: var(--ink);
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding: 1.5rem 2.5rem;
+      padding: 1.75rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    footer span {
-      font-size: .75rem;
-      color: rgba(255,255,255,.25);
-      letter-spacing: .04em;
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: .95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.3);
+      text-decoration: none;
+    }
+    .footer-logo span { color: rgba(197,163,90,.5); }
+    footer p {
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.2);
     }
 
-    /* ── Keyframes ── */
-    @keyframes fadeUp {
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes slideIn {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: none; }
     }
+    @keyframes lineUp {
+      from { opacity: 0; transform: translateY(100%); }
+      to   { opacity: 1; transform: none; }
+    }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.25rem; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      nav.scrolled { padding: .85rem 1.5rem; }
       .nav-links { display: none; }
-      .container { padding: 0 1.25rem; }
-      section { padding: 4.5rem 0; }
-      .cases-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .case-subnav {
-        top: 3.75rem;
-        margin-bottom: 2rem;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-      }
-      .side-link {
-        padding: .75rem 1rem;
-        font-size: .72rem;
-      }
-      .hero-title { font-size: 2.2rem; }
+      .hero-inner { padding: 0 1.5rem; }
+      .hero-bottom { padding: 1.5rem; }
+      .hero-title { font-size: 3rem; }
+      .hero-row { flex-direction: column; align-items: flex-start; gap: 2rem; }
+      .hero-stats { gap: 2rem; }
+      .section { padding: 5rem 1.5rem; }
+      .about-bento { grid-template-columns: 1fr; }
+      .case-content-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .timeline-nav { position: static; height: auto; }
+      .tl-track { height: auto; flex-direction: row; flex-wrap: wrap; gap: .5rem; justify-content: flex-start; }
+      .tl-track::before { display: none; }
+      .tl-item { padding: .35rem .75rem; border: 1px solid var(--border); border-radius: 20px; gap: .4rem; }
+      .tl-icon { width: 22px; height: 22px; font-size: .55rem; }
+      .tl-num { display: none; }
+      .process-shot-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .case-hero { padding: 4rem 1.5rem 3rem; }
+      .case-meta-row { gap: 1.5rem; }
+      .case-meta-item { padding-right: 1.5rem; margin-right: 1.5rem; }
     }
   </style>
 </head>
@@ -822,31 +1341,29 @@
 
   <!-- NAV -->
   <nav id="main-nav">
-    <a class="nav-logo" href="#hero">Karina</a>
-    <ul class="nav-links">
-      <li><a href="#cases">Prosjekter</a></li>
-      <li><a href="#about">Om meg</a></li>
-      <li><a href="#contact">Kontakt</a></li>
-    </ul>
+    <a class="nav-logo" href="#hero">Karina<span>.</span></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#cases">Prosjekter</a></li>
+        <li><a href="#about">Om meg</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+      <a class="nav-cv" href="karina-lyssand-cv.pdf" download>Last ned CV ↓</a>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-inner">
-      <p class="hero-eyebrow">UX · Visuell design · Grafisk design</p>
+      <p class="hero-eyebrow">UX-design · Frontend · Grafisk design</p>
 
       <h1 class="hero-title">
         <span class="hero-title-line">Komplekst</span>
-        <span class="hero-title-line hero-title-line--row">
-          <span class="hero-title-prefix">gjort</span>
-          <span class="hero-word-wrap"><span class="hero-word" id="hero-word">enkelt.</span></span>
-        </span>
+        <span class="hero-title-line">gjort <span class="hero-word-wrap"><span class="hero-word" id="hero-word">enkelt.</span></span></span>
       </h1>
 
       <p class="hero-sub">
-        Fra informasjonsarkitektur og brukerflyt til visuell identitet
-        og komponentbibliotek – med bruker og resultat i sentrum gjennom hele prosessen.
-      </p>
+        Jeg designer og utvikler digitale løsninger, fra brukerinnsikt til produksjonsklar frontend.</p>
 
       <div class="hero-cta-row">
         <a class="btn btn-primary btn-arrow" href="#cases">Se prosjektene</a>
@@ -854,98 +1371,96 @@
       </div>
     </div>
 
+    <!-- Ticker -->
     <div class="hero-bottom">
       <div class="ticker-wrap">
         <div class="ticker-track">
-          <span class="ticker-item">UX Design</span>
-          <span class="ticker-item">Informasjonsarkitektur</span>
-          <span class="ticker-item">Figma</span>
-          <span class="ticker-item">Visuell identitet</span>
-          <span class="ticker-item">Brukerreiser</span>
-          <span class="ticker-item">Universell utforming</span>
-          <span class="ticker-item">Grafisk design</span>
-          <span class="ticker-item">Komponentbibliotek</span>
-          <span class="ticker-item">Prototyping</span>
           <span class="ticker-item">Frontend</span>
-          <span class="ticker-item">WordPress</span>
-          <span class="ticker-item">Interaksjonsdesign</span>
           <span class="ticker-item">UX Design</span>
-          <span class="ticker-item">Informasjonsarkitektur</span>
+          <span class="ticker-item">Svelte</span>
           <span class="ticker-item">Figma</span>
-          <span class="ticker-item">Visuell identitet</span>
-          <span class="ticker-item">Brukerreiser</span>
-          <span class="ticker-item">Universell utforming</span>
-          <span class="ticker-item">Grafisk design</span>
-          <span class="ticker-item">Komponentbibliotek</span>
+          <span class="ticker-item">Informasjonsarkitektur</span>
+          <span class="ticker-item">HTML/CSS</span>
           <span class="ticker-item">Prototyping</span>
+          <span class="ticker-item">Universell utforming</span>
+          <span class="ticker-item">Designsystemer</span>
+          <span class="ticker-item">Brukerinnsikt</span>
+          <span class="ticker-item">SvelteKit</span>
+          <span class="ticker-item">Datavisualisering</span>
           <span class="ticker-item">Frontend</span>
-          <span class="ticker-item">WordPress</span>
-          <span class="ticker-item">Interaksjonsdesign</span>
+          <span class="ticker-item">UX Design</span>
+          <span class="ticker-item">Svelte</span>
+          <span class="ticker-item">Figma</span>
+          <span class="ticker-item">Informasjonsarkitektur</span>
+          <span class="ticker-item">HTML/CSS</span>
+          <span class="ticker-item">Prototyping</span>
+          <span class="ticker-item">Universell utforming</span>
+          <span class="ticker-item">Designsystemer</span>
+          <span class="ticker-item">Brukerinnsikt</span>
+          <span class="ticker-item">SvelteKit</span>
+          <span class="ticker-item">Datavisualisering</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CASE CARDS OVERVIEW -->
-  <section id="cases">
-    <div class="container">
-      <p class="cases-label reveal">Utvalgte prosjekter</p>
-      <div class="cases-grid">
+  <!-- CASE CARDS -->
+  <section id="cases" style="border-top: 1px solid var(--border);">
+    <div class="section" style="padding-bottom: 0;">
+      <p class="section-label reveal">Utvalgte prosjekter</p>
+    </div>
+    <div class="section" style="padding-top: 2rem;">
+      <div class="cases-grid-new reveal">
 
-        <a class="case-card reveal" href="#case-glex">
-          <div class="case-card-img card-glex">
-            <div class="mock-browser">
-              <div class="mock-bar">
-                <div class="mock-dot"></div>
-                <div class="mock-dot"></div>
-                <div class="mock-dot"></div>
+        <a class="case-card-new" href="#case-glex">
+          <div class="case-card-visual-new visual-glex-hero">
+            <span class="case-card-num">01</span>
+            <div class="mini-screen" style="margin:auto;width:65%">
+              <div class="mini-topbar">
+                <div class="mini-dot"></div>
+                <div class="mini-dot"></div>
+                <div class="mini-dot"></div>
               </div>
-              <div class="mock-content">
-                <div class="mock-nav-strip"></div>
-                <div class="mock-hero-block"></div>
-                <div class="mock-row">
-                  <div class="mock-chip"></div>
-                  <div class="mock-chip dark"></div>
-                  <div class="mock-chip"></div>
+              <div class="mini-body">
+                <div class="mini-nav"></div>
+                <div class="mini-hero-block"></div>
+                <div class="mini-row">
+                  <div class="mini-chip"></div>
+                  <div class="mini-chip c2"></div>
+                  <div class="mini-chip"></div>
                 </div>
-                <div class="mock-row">
-                  <div class="mock-chip dark"></div>
-                  <div class="mock-chip"></div>
+                <div class="mini-row">
+                  <div class="mini-chip c2"></div>
+                  <div class="mini-chip"></div>
+                </div>
+                <div class="mini-row">
+                  <div class="mini-chip"></div>
+                  <div class="mini-chip"></div>
+                  <div class="mini-chip c2"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="case-card-body">
-            <p class="case-tag">Websideredesign · IA · Figma</p>
-            <h2 class="case-title">Glex.no — Én plattform, to målgrupper, én klar fortelling</h2>
-            <p class="case-desc">Omstrukturering av IA og innhold for å adressere to distinkte målgrupper med helt ulike behov og beslutningsgrunnlag.</p>
-            <span class="case-link">Les case study</span>
+          <div class="case-card-info">
+            <div class="case-card-info-left">
+              <p class="case-card-tag">Websideredesign · UX · Informasjonsarkitektur · Figma</p>
+              <h2 class="case-card-title">Glex.no — Én plattform, to målgrupper</h2>
+            </div>
+            <span class="case-card-cta">Les →</span>
           </div>
         </a>
 
-        <a class="case-card reveal" href="#case-map" style="transition-delay:.1s">
-          <div class="case-card-img card-map">
-            <div class="mock-map">
-              <div class="mock-map-bg"></div>
-              <div class="mock-pin" style="left:28%;top:45%"></div>
-              <div class="mock-pin" style="left:42%;top:38%;width:4px;height:4px;opacity:.7"></div>
-              <div class="mock-pin" style="left:35%;top:55%;width:5px;height:5px"></div>
-              <div class="mock-pin" style="left:55%;top:42%;width:4px;height:4px;opacity:.6"></div>
-              <div class="mock-pin" style="left:20%;top:32%;width:3px;height:3px;opacity:.5"></div>
-              <div class="mock-sidebar">
-                <div class="mock-sidebar-row"></div>
-                <div class="mock-sidebar-row short"></div>
-                <div class="mock-sidebar-row"></div>
-                <div class="mock-sidebar-row short"></div>
-                <div class="mock-sidebar-row"></div>
-              </div>
-            </div>
+        <a class="case-card-new" href="#case-map">
+          <div class="case-card-visual-new visual-map-hero">
+            <span class="case-card-num">02</span>
+            <img class="case-card-image" src="pocket.png" alt="Portfolio Map skjermbilde" />
           </div>
-          <div class="case-card-body">
-            <p class="case-tag">Kartapplikasjon · Interaksjonsdesign · UX</p>
-            <h2 class="case-title">Portfolio Map — Geodata for beslutningstakere</h2>
-            <p class="case-desc">Designet en kartbasert webapplikasjon for analyse og sammenligning av selskapsporteføljer på norsk kontinentalsokkel.</p>
-            <span class="case-link">Les case study</span>
+          <div class="case-card-info">
+            <div class="case-card-info-left">
+              <p class="case-card-tag">Kartapplikasjon · Frontend · Svelte · UX · Datavisualisering</p>
+              <h2 class="case-card-title">Portfolio Map — Geodata uten opplæring</h2>
+            </div>
+            <span class="case-card-cta">Les →</span>
           </div>
         </a>
 
@@ -955,460 +1470,617 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-left reveal">
-          <p class="about-eyebrow">Om meg</p>
-          <h2 class="about-heading">Design som<br><em>faktisk løser</em><br>noe.</h2>
-        </div>
-        <div class="about-right reveal" style="transition-delay:.15s">
-          <p class="about-text">
-            Jeg er UX- og grafisk designer med erfaring fra komplekse dataprodukt i energibransjen.
-            Til daglig jobber jeg med å gjøre avansert funksjonalitet forståelig – for brukere som er
-            eksperter på sitt felt, men ikke nødvendigvis på teknologi.
-          </p>
-          <p class="about-text">
-            Jeg jobber hele veien fra informasjonsarkitektur og brukerflyt til visuell identitet og
-            komponentbibliotek. Jeg er komfortabel i Figma, forstår frontend, og er vant til å forankre
-            designvalg i faktiske brukerbehov – ikke antagelser.
-          </p>
-          <p class="about-text">
-            Jeg søker miljøer der design brukes til å løse reelle problemer, og der jeg kan bidra på
-            tvers av fag og disipliner – fra første idé til ferdig produkt.
-          </p>
-          <div class="about-tags">
-            <span class="tag">UX Design</span>
-            <span class="tag">Brukerreiser</span>
-            <span class="tag">Informasjonsarkitektur</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Visuell identitet</span>
-            <span class="tag">Komponentbibliotek</span>
-            <span class="tag">Universell utforming</span>
-            <span class="tag">Frontend</span>
-            <span class="tag">WordPress</span>
+    <div class="section">
+      <p class="section-label reveal">Om meg</p>
+      <div class="about-bento">
+
+        <article class="bento-card bento-profile reveal">
+          <div class="bento-profile-head">
+            <div class="bento-photo-wrap">
+              <img src="profilebilde.png" alt="Karina Lyssand" width="88" height="88" />
+            </div>
+            <div>
+              <div class="bento-card-name">Karina Lyssand</div>
+              <div class="bento-card-role">UX &amp; grafisk designer</div>
+            </div>
           </div>
-        </div>
+          <p class="bento-card-bio">
+            Jeg er frontend-utvikler og UX-designer med bakgrunn i frontend og grafisk design. I dag jobber jeg med å utvikle og designe datadrevne produkter for energibransjen, der jeg tar løsninger fra idé til ferdig implementert grensesnitt.
+          </p>
+          <p class="bento-card-bio" style="margin-top:.75rem">
+            Jeg kombinerer teknisk gjennomføringsevne med brukerinnsikt, struktur og visuell presisjon – og tar eierskap til hele prosessen, fra konsept til produksjon.
+          </p>
+        </article>
+
+        <article class="bento-card bento-philosophy reveal reveal-delay-1">
+          <p class="bento-card-label">Designfilosofi</p>
+          <span class="bento-quote-mark" aria-hidden="true">"</span>
+          <p class="bento-quote-text">
+            God UX må tåle virkeligheten i kode. Jeg designer løsninger som lar seg bygge – og bygger dem.
+          </p>
+        </article>
+
+        <article class="bento-card bento-skills reveal reveal-delay-2">
+          <p class="bento-card-label">Kompetanse</p>
+          <ul class="bento-skill-list">
+            <li class="bento-skill-item">Frontend-utvikling (HTML · CSS · JavaScript) <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Svelte / SvelteKit <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">UX Design &amp; brukerinnsikt <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Informasjonsarkitektur <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Figma &amp; prototyping <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Universell utforming (WCAG) <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Designsystemer &amp; design tokens <span class="bento-skill-dot"></span></li>
+          </ul>
+        </article>
+
       </div>
     </div>
   </section>
 
   <!-- CASE 1 -->
-  <section id="case-glex" class="case-section" style="padding:0">
-    <div class="container">
-      <div class="case-header reveal">
-        <p class="case-number">Prosjekt 01</p>
-        <h2 class="case-big-title">Glex.no redesign — <em>én klar fortelling</em> til to ulike målgrupper</h2>
-        <p class="case-subtitle">Omstrukturering av informasjonsarkitektur og innhold for en kompleks produktsuite rettet mot norsk olje- og gasssektor.</p>
-        <div class="case-meta">
-          <div class="case-meta-item">
-            <p class="case-meta-label">Rolle</p>
-            <p class="case-meta-value">UX Designer, visuell design</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Verktøy</p>
-            <p class="case-meta-value">Figma, komponentsystemer</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Kontekst</p>
-            <p class="case-meta-value">Glex AS, intern redesign</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Fokus</p>
-            <p class="case-meta-value">IA · Innhold · Navigasjon</p>
-          </div>
+  <section id="case-glex" class="case-section-full">
+    <div class="case-hero reveal">
+      <p class="case-hero-num">Prosjekt 01 / Websideredesign</p>
+      <h2 class="case-hero-title">"Nettsiden snakket til <em>alle</em> og overbeviste <em>ingen.</em>"</h2>
+      <p class="case-hero-sub">Glex trengte ikke en ny nettside. De trengte klarhet om hvem de snakket til – og to distinkte fortellinger som møtte hver målgruppe på deres premisser.</p>
+      <div class="case-meta-row">
+        <div class="case-meta-item">
+          <p class="meta-label">Rolle</p>
+          <p class="meta-value">UX Designer, visuell design</p>
+        </div>
+        <div class="case-meta-item">
+          <p class="meta-label">Verktøy</p>
+          <p class="meta-value">Figma, komponentsystemer</p>
+        </div>
+        <div class="case-meta-item">
+          <p class="meta-label">Kontekst</p>
+          <p class="meta-value">Glex AS, intern redesign</p>
+        </div>
+        <div class="case-meta-item" style="border-right:none">
+          <p class="meta-label">Figma</p>
+          <a class="proto-btn" href="https://www.figma.com/design/sk1d4WjwRBdGhGMShhk583" target="_blank" rel="noopener">Åpne design ↗</a>
         </div>
       </div>
     </div>
 
-    <div class="case-body">
-      <div class="container">
-          <nav class="case-subnav" aria-label="Hopp til del av caset">
-            <a class="side-link active" href="#g-context">Kontekst</a>
-            <a class="side-link" href="#g-problem">Problem</a>
-            <a class="side-link" href="#g-innsikt">Innsikt</a>
-            <a class="side-link" href="#g-prosess">Prosess</a>
-            <a class="side-link" href="#g-losning">Løsning</a>
-            <a class="side-link" href="#g-refleksjon">Refleksjon</a>
-          </nav>
+    <div class="case-content-wrap">
+      <nav class="timeline-nav" aria-label="Innholdsnavigasjon">
+        <div class="tl-track">
+          <a class="tl-item active" href="#g-problem">
+            <div class="tl-icon">△</div>
+            <div class="tl-text"><div class="tl-num">01</div><div class="tl-label">Problem</div></div>
+          </a>
+          <a class="tl-item" href="#g-prosess">
+            <div class="tl-icon">⊞</div>
+            <div class="tl-text"><div class="tl-num">02</div><div class="tl-label">Prosess</div></div>
+          </a>
+          <a class="tl-item" href="#g-losning">
+            <div class="tl-icon">✦</div>
+            <div class="tl-text"><div class="tl-num">03</div><div class="tl-label">Løsning</div></div>
+          </a>
+          <a class="tl-item" href="#g-refleksjon">
+            <div class="tl-icon">◐</div>
+            <div class="tl-text"><div class="tl-num">04</div><div class="tl-label">Refleksjon</div></div>
+          </a>
+        </div>
+      </nav>
 
-          <div class="case-content">
+      <div>
 
-            <div class="case-block reveal" id="g-context">
-              <p class="block-label">Kontekst</p>
-              <h3 class="block-title">Et produkt ingen visste hvordan de skulle selge</h3>
-              <p class="block-text">
-                Glex lager porteføljeintelligensverktøy for operatører på norsk kontinentalsokkel.
-                Produktsuiten består av Glex Energy – en Windows-plattform for dypanalyse – og fem
-                spesialiserte webapper: Portfolio Map, Prospect Atlas, Portfolio View, Dashboard og reStore.
-              </p>
-              <p class="block-text">
-                Utfordringen var at det ikke eksisterte konsensus internt – hverken om hva som var
-                kjerneprodukt, hvem som var primærmålgruppen, eller hvordan produktene hang sammen.
-                Det ble direkte synlig på nettsiden.
-              </p>
-              <div class="case-visual visual-glex reveal">
-                <span style="color:rgba(255,255,255,.15);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til skjermbilde av gammel glex.no her ]</span>
-                <span class="visual-label">Eksisterende nettside – utgangspunkt</span>
+        <!-- PROBLEM -->
+        <div class="case-block reveal" id="g-problem">
+          <p class="block-eyebrow">Problem</p>
+          <h3 class="block-title">Én plattform, to målgrupper, null struktur</h3>
+          <p class="block-text">Glex sitt produkttilbud – Glex Energy og fem webapper – ble presentert som en ustrukturert liste uten hierarki. Daglige brukere (exploration managers, business dev managers og asset managers) trengte teknisk dybde og dokumentasjon. Beslutningstakere og innkjøpere trengte ROI-argumenter og svar på «hvorfor Glex fremfor alternativene». Nettsiden ga ingen av dem det de kom for.</p>
+          <div class="pull-quote">
+            <p>"Det krevende var ikke å designe – det var å avklare hva vi egentlig solgte."</p>
+          </div>
+
+          <!-- BEFORE / AFTER -->
+          <div class="before-after">
+            <div class="ba-panel old">
+              <div class="ba-badge b">Før</div>
+              <img class="ba-shot" src="før.png" alt="Glex nettside før redesign" />
+            </div>
+            <div class="ba-panel new">
+              <div class="ba-badge a">Etter</div>
+              <img class="ba-shot" src="etter.png" alt="Glex nettside etter redesign" />
+            </div>
+          </div>
+          <div class="ba-caption">
+            <span class="ba-cap-txt">Likestilte produktkort uten hierarki — ingen klar målgruppe</span>
+            <span class="ba-cap-txt">To inngangsveier · Platform overview + Why Glex</span>
+          </div>
+        </div>
+
+        <!-- PROSESS -->
+        <div class="case-block reveal" id="g-prosess">
+          <p class="block-eyebrow">Prosess</p>
+          <h3 class="block-title">Fra kaos til klarhet</h3>
+
+          <div class="process-phases">
+
+            <div class="process-phase">
+              <p class="phase-label">Forstå</p>
+              <div class="phase-steps">
+                <div class="phase-step">
+                  <span class="phase-step-num">01</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Konkurranseanalyse</div>
+                    <div class="phase-step-desc">Atlassian, FutureOn og Miter gjennomgått for IA-mønstre, målgruppestruktur og kommunikasjonsstrategi</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">02</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">IA-audit</div>
+                    <div class="phase-step-desc">Eksisterende struktur kartlagt — bruddpunkter, uklart hierarki og manglende målgruppeorientering identifisert</div>
+                  </div>
+                </div>
+              </div>
+              <div class="artifact-card">
+                <div class="artifact-card-header">
+                  <span class="artifact-card-label">Artefakt — Konkurranseanalyse</span>
+                  <span class="artifact-card-phase">Forstå</span>
+                </div>
+                <div class="artifact-card-body">
+                  <div class="comp-analysis">
+                    <div class="comp-item">
+                      <div class="comp-item-name">Atlassian</div>
+                      <div class="comp-bar-row"><div class="comp-bar full"></div></div>
+                      <div class="comp-item-tag">Role-based nav</div>
+                    </div>
+                    <div class="comp-item">
+                      <div class="comp-item-name">FutureOn</div>
+                      <div class="comp-bar-row"><div class="comp-bar mid"></div></div>
+                      <div class="comp-item-tag">Product-first</div>
+                    </div>
+                    <div class="comp-item">
+                      <div class="comp-item-name">Miter</div>
+                      <div class="comp-bar-row"><div class="comp-bar full"></div></div>
+                      <div class="comp-item-tag">Pain-point led</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="artifact-card" style="margin-top:.75rem">
+                <div class="artifact-card-header">
+                  <span class="artifact-card-label">Artefakt — IA-audit</span>
+                  <span class="artifact-card-phase">Forstå</span>
+                </div>
+                <div class="artifact-card-body">
+                  <div class="audit-rows">
+                    <div class="audit-row">
+                      <div class="audit-label">Hierarki</div>
+                      <div class="audit-bar-wrap"><div class="audit-bar red" style="width:15%"></div></div>
+                      <div class="audit-note">Mangler</div>
+                    </div>
+                    <div class="audit-row">
+                      <div class="audit-label">Målgruppeorientering</div>
+                      <div class="audit-bar-wrap"><div class="audit-bar red" style="width:10%"></div></div>
+                      <div class="audit-note">Ikke adressert</div>
+                    </div>
+                    <div class="audit-row">
+                      <div class="audit-label">Produkthierarki</div>
+                      <div class="audit-bar-wrap"><div class="audit-bar amber" style="width:35%"></div></div>
+                      <div class="audit-note">Uklart</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="case-block reveal" id="g-problem">
-              <p class="block-label">Problem</p>
-              <h3 class="block-title">Nettsiden snakket til alle og overbeviste ingen</h3>
-              <p class="block-text">
-                Daglige brukere – exploration managers, business dev managers og asset managers –
-                trengte teknisk dybde, dokumentasjon og forståelse av hvordan verktøyene fungerte i
-                praksis. Beslutningstakere og innkjøpere trengte ROI-argumenter, tillitsbygging og
-                svar på «hvorfor Glex fremfor alternativene».
-              </p>
-              <div class="insight-box">
-                <p>"Nettsiden behandlet alle besøkende likt – men behovene var fundamentalt forskjellige."</p>
-              </div>
-              <p class="block-text">
-                I tillegg manglet hierarki: fem produkter fremsto som likestilte, uten å kommunisere
-                at de er deler av én sammenhengende plattform – ikke fem separate kjøp.
-              </p>
-            </div>
-
-            <div class="case-block reveal" id="g-innsikt">
-              <p class="block-label">Innsikt</p>
-              <h3 class="block-title">To inngangsveier, én plattform</h3>
-              <p class="block-text">
-                Gjennom analyse av eksisterende IA og gjennomgang av konkurrenter som Atlassian og FutureOn
-                identifiserte jeg et grunnleggende strukturproblem: produktet ble presentert som en liste
-                med likestilte verktøy, men brukernes mentale modell var en sammenhengende plattform.
-              </p>
-              <p class="block-text">
-                Jeg hentet inn konferansemateriell og interne salgsdokumenter for å forstå hvilke
-                argumenter som faktisk landet hos kundene. Der fant jeg de tre smertepunktene som
-                ble kjernen i den nye kommunikasjonen: manglende datakonnektivitet, tall uten innsikt,
-                og tid brukt på manuelle oppdateringer.
-              </p>
-              <div class="insight-box">
-                <p>"God IA krever noen ganger at man stiller spørsmål ingen andre har stilt ennå."</p>
-              </div>
-            </div>
-
-            <div class="case-block reveal" id="g-prosess">
-              <p class="block-label">Prosess</p>
-              <h3 class="block-title">Fra kaos til klarhet</h3>
-              <div class="process-steps">
-                <div class="process-step">
-                  <span class="step-num">1</span>
-                  <p class="step-text">Kartla eksisterende IA og identifiserte bruddpunkter – hva ble ikke funnet, hva var uklart, hva manglet kontekst</p>
+            <div class="process-phase">
+              <p class="phase-label">Definere</p>
+              <div class="phase-steps">
+                <div class="phase-step">
+                  <span class="phase-step-num">03</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Målgruppeanalyse</div>
+                    <div class="phase-step-desc">To primære målgrupper definert med ulike behov, motivasjoner og beslutningsmakt</div>
+                  </div>
                 </div>
-                <div class="process-step">
-                  <span class="step-num">2</span>
-                  <p class="step-text">Definerte to primære målgrupper med ulike behov, motivasjoner og beslutningsmakt</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">3</span>
-                  <p class="step-text">Utviklet to navigasjonskonsepter: platform-first nav vs. rolle-first nav – og testet begge mot interne stakeholders</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">4</span>
-                  <p class="step-text">Besluttet todelt sidestruktur: <em>Platform overview</em> for brukere, <em>Why Glex</em> for beslutningstakere</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">5</span>
-                  <p class="step-text">Bygget komponentbasert elementbibliotek i Figma med konsistente designtokens og gjenbrukbare seksjoner</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">6</span>
-                  <p class="step-text">Integrerte ekte salgskopi fra konferansemateriell – erstattet lorem ipsum med reell kommunikasjon</p>
+                <div class="phase-step">
+                  <span class="phase-step-num">04</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Strategisk innsikt</div>
+                    <div class="phase-step-desc">"To inngangsveier, én plattform" etablert som strukturerende designprinsipp</div>
+                  </div>
                 </div>
               </div>
-
-              <div class="case-visual visual-nav reveal">
-                <span style="color:var(--ink3);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til wireframes / navigasjonskonsepter her ]</span>
-                <span class="visual-label">Navigasjonskonsepter – iterasjon</span>
+              <div class="artifact-card">
+                <div class="artifact-card-header">
+                  <span class="artifact-card-label">Artefakt — Målgruppeanalyse</span>
+                  <span class="artifact-card-phase">Definere</span>
+                </div>
+                <div class="artifact-card-body">
+                  <div class="audience-cards">
+                    <div class="audience-card">
+                      <div class="audience-card-title">Brukere</div>
+                      <div class="audience-card-roles">Exploration · Asset · BD</div>
+                      <div class="audience-card-need">Teknisk dybde, dokumentasjon og rollebaserte bruksscenarioer</div>
+                    </div>
+                    <div class="audience-card">
+                      <div class="audience-card-title">Beslutningstakere</div>
+                      <div class="audience-card-roles">C-suite · Innkjøper</div>
+                      <div class="audience-card-need">ROI-argumenter, tillit og tydelige kjøpsveier</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="case-block reveal" id="g-losning">
-              <p class="block-label">Løsning</p>
-              <h3 class="block-title">To sider med én hensikt hver</h3>
-              <p class="block-text">
-                <strong>Platform overview</strong> ble en teknisk, brukerorientert side som forklarer
-                hvordan plattformen fungerer operasjonelt – med produkthierarki, integrasjoner og
-                rollebaserte bruksscenarioer.
-              </p>
-              <p class="block-text">
-                <strong>Why Glex</strong> ble en aktiv salgspitch rettet mot beslutningstakere:
-                smertepunktbasert kommunikasjon, ROI-framing, konkurransedifferensiering og tydelige
-                kjøpsveier. Inspirert av bevisst strukturerte SaaS-sider som Miter og Atlassian.
-              </p>
-              <p class="block-text">
-                Et felles designsystem binder det hele sammen visuelt: fargekodede produktkort,
-                konsistente typografiske hierarkier og et komponentbibliotek bygget for enkel videre utvikling.
-              </p>
-              <div class="case-visual visual-glex reveal">
-                <span style="color:rgba(255,255,255,.15);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til Figma-skjermbilder av ferdig løsning her ]</span>
-                <span class="visual-label">Ferdig design – Platform overview og Why Glex</span>
+            <div class="process-phase">
+              <p class="phase-label">Designe</p>
+              <div class="phase-steps">
+                <div class="phase-step">
+                  <span class="phase-step-num">05</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Navigasjonskonsepter</div>
+                    <div class="phase-step-desc">To konsepter (platform-first og rolle-first) ble testet mot stakeholdernes beslutningsbehov, med fokus på hva som reduserte friksjon i første møte med produktet</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">06</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Innholdsstrategi</div>
+                    <div class="phase-step-desc">Kjernebudskap ble hentet fra faktisk salgs- og konferansemateriell, og strukturert rundt tre dokumenterte smertepunkter fremfor interne antagelser</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">07</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Wireframes & iterasjon</div>
+                    <div class="phase-step-desc">Wireframes ble brukt for å validere struktur tidlig: tydelig separasjon mellom teknisk orientert «Platform overview» og kommersiell «Why Glex»</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">08</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Komponentbibliotek</div>
+                    <div class="phase-step-desc">Et komponentbibliotek i Figma sikret konsistent hierarki, gjenbrukbare mønstre og raskere overgang fra skisse til ferdig design</div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div class="case-block reveal" id="g-refleksjon">
-              <p class="block-label">Refleksjon</p>
-              <h3 class="block-title">Design som tvinger frem viktige spørsmål</h3>
-              <p class="block-text">
-                Det krevende var ikke å designe – det var å avklare hva vi egentlig solgte. En nettside
-                kan ikke kommunisere det et selskap ikke har blitt enige om internt. Prosjektet tvang
-                frem en intern produktposisjonering som manglet.
-              </p>
-              <p class="block-text">
-                Jeg lærte at UX-design på strategisk nivå handler like mye om å stille riktige spørsmål
-                til organisasjonen som om å løse brukerproblemer. Noen ganger er designerens viktigste
-                bidrag å synliggjøre uklarheten – ikke bare løse den.
-              </p>
+              <div class="artifact-card">
+                <div class="artifact-card-header">
+                  <span class="artifact-card-label">Artefakt — Navigasjonskonsepter</span>
+                  <span class="artifact-card-phase">Designe</span>
+                </div>
+                <div class="artifact-card-body">
+                  <div class="nav-concepts">
+                    <div class="nav-concept">
+                      <div class="nav-concept-header"><span class="nav-concept-name">Rolle-first</span></div>
+                      <div class="nav-pills">
+                        <span class="nav-pill-item">Solutions</span>
+                        <span class="nav-pill-item">Products</span>
+                        <span class="nav-pill-item">Why Glex</span>
+                        <span class="nav-pill-item">Company</span>
+                      </div>
+                    </div>
+                    <div class="nav-concept chosen">
+                      <div class="nav-concept-header">
+                        <span class="nav-concept-name">Platform-first</span>
+                        <span class="nav-chosen-badge">Valgt</span>
+                      </div>
+                      <div class="nav-pills">
+                        <span class="nav-pill-item active">Platform</span>
+                        <span class="nav-pill-item active">Why Glex</span>
+                        <span class="nav-pill-item">Resources</span>
+                        <span class="nav-pill-item">Company</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="concept-visual-grid">
+                    <div class="concept-visual">
+                      <img class="concept-shot" src="rolefrist%20konept%201.png" alt="Konsept 1: rolle-first navigasjon" />
+                      <p class="concept-caption">Konsept 1 (rolle-first): tydelig rolleinngang, men mindre fokus på plattformens samlede verdi i første møte.</p>
+                    </div>
+                    <div class="concept-visual chosen">
+                      <img class="concept-shot" src="konsept%202%28platform%20first%29.png" alt="Konsept 2: platform-first navigasjon" />
+                      <p class="concept-caption">Konsept 2 (platform-first): valgte retning fordi den gir klarere produkthierarki og bedre overgang til «Why Glex».</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="artifact-card" style="margin-top:.75rem">
+                <div class="artifact-card-header">
+                  <span class="artifact-card-label">Artefakt — Wireframe (strukturvalidering)</span>
+                  <span class="artifact-card-phase">Designe</span>
+                </div>
+                <div class="artifact-card-body">
+                  <img class="wireframe-shot" src="wirefame.png" alt="Wireframe for redesign av Glex-hjemmesiden" />
+                  <p class="wireframe-note">Wireframen ble brukt til å teste informasjonsflyt og prioritering før visuell utforming. Dette gjorde det mulig å justere navigasjon, hero-budskap og innholdshierarki før high-fidelity design.</p>
+                </div>
+              </div>
             </div>
 
           </div>
+        </div>
+
+        <!-- LØSNING -->
+        <div class="case-block reveal" id="g-losning">
+          <p class="block-eyebrow">Løsning</p>
+          <h3 class="block-title">To sider med én hensikt hver</h3>
+          <p class="block-text"><strong>Platform overview</strong> ble en teknisk, brukerorientert side som forklarer hvordan plattformen fungerer operasjonelt – med produkthierarki, integrasjoner og rollebaserte bruksscenarioer.</p>
+          <p class="block-text"><strong>Why Glex</strong> ble en aktiv salgspitch rettet mot beslutningstakere: smertepunktbasert kommunikasjon, ROI-framing, konkurransedifferensiering og tydelige kjøpsveier.</p>
+          <div class="solution-visuals">
+            <figure class="solution-shot-card">
+              <img class="solution-shot" src="etter.png" alt="Nettsiden etter redesign med tydelig struktur og budskap" />
+              <figcaption class="solution-shot-caption">Etter: Oppdatert startside med klarere hierarki, tydeligere målgruppeføring og bedre førsteinntrykk.</figcaption>
+            </figure>
+            <figure class="solution-shot-card">
+              <img class="solution-shot" src="ferdigprodukt.png" alt="Ferdig produktvisning av redesigned løsning" />
+              <figcaption class="solution-shot-caption">Ferdig produkt: Oppfølgingsseksjoner som bygger tillit videre med integrasjoner, faglig tyngde og tydelig teampresentasjon.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- REFLEKSJON -->
+        <div class="case-block reveal" id="g-refleksjon">
+          <p class="block-eyebrow">Refleksjon</p>
+          <h3 class="block-title">Design som tvinger frem viktige spørsmål</h3>
+          <p class="block-text">Det krevende var ikke å designe – det var å avklare hva vi egentlig solgte. En nettside kan ikke kommunisere det et selskap ikke har blitt enige om internt. Prosjektet tvang frem en intern produktposisjonering som manglet.</p>
+          <div class="reflection-box">
+            <div class="reflection-label">Hva jeg lærte</div>
+            <div class="reflection-text">UX-design på strategisk nivå handler like mye om å stille riktige spørsmål til organisasjonen som om å løse brukerproblemer. Noen ganger er designerens viktigste bidrag å synliggjøre uklarheten — ikke bare løse den.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- CASE 2 -->
-  <section id="case-map" class="case-section case-section--alt" style="padding:0">
-    <div class="container">
-      <div class="case-header reveal">
-        <p class="case-number">Prosjekt 02</p>
-        <h2 class="case-big-title">Portfolio Map — Geodata for beslutningstakere,<br><em>uten opplæring</em></h2>
-        <p class="case-subtitle">Interaksjonsdesign for en kartbasert webapplikasjon der komplekse geodata skal gi rask beslutningsstøtte for eksplorasjonsteam på norsk sokkel.</p>
-        <div class="case-meta">
-          <div class="case-meta-item">
-            <p class="case-meta-label">Rolle</p>
-            <p class="case-meta-value">UX Designer, interaksjonsdesign</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Verktøy</p>
-            <p class="case-meta-value">Figma, Svelte (samarbeid)</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Kontekst</p>
-            <p class="case-meta-value">Glex AS, produktutvikling</p>
-          </div>
-          <div class="case-meta-item">
-            <p class="case-meta-label">Fokus</p>
-            <p class="case-meta-value">Interaksjon · Dataviz · UI</p>
-          </div>
+  <section id="case-map" class="case-section-full alt">
+    <div class="case-hero reveal">
+      <p class="case-hero-num">Prosjekt 02 / Kartapplikasjon</p>
+      <h2 class="case-hero-title">Portfolio Map — Geodata for beslutningstakere,<br><em>uten opplæring</em></h2>
+      <p class="case-hero-sub">Interaksjonsdesign for en kartbasert webapplikasjon der komplekse geodata skal gi rask beslutningsstøtte for eksplorasjonsteam på norsk sokkel.</p>
+      <div class="case-meta-row">
+        <div class="case-meta-item">
+          <p class="meta-label">Rolle</p>
+          <p class="meta-value">UX Designer, interaksjonsdesign</p>
+        </div>
+        <div class="case-meta-item">
+          <p class="meta-label">Verktøy</p>
+          <p class="meta-value">Figma, Svelte (samarbeid)</p>
+        </div>
+        <div class="case-meta-item">
+          <p class="meta-label">Kontekst</p>
+          <p class="meta-value">Glex AS, produktutvikling</p>
+        </div>
+        <div class="case-meta-item" style="border-right:none">
+          <p class="meta-label">Fokus</p>
+          <p class="meta-value">Interaksjon · Dataviz · UI</p>
         </div>
       </div>
     </div>
 
-    <div class="case-body">
-      <div class="container">
-          <nav class="case-subnav" aria-label="Hopp til del av caset">
-            <a class="side-link" href="#m-context">Kontekst</a>
-            <a class="side-link" href="#m-problem">Problem</a>
-            <a class="side-link" href="#m-innsikt">Innsikt</a>
-            <a class="side-link" href="#m-prosess">Prosess</a>
-            <a class="side-link" href="#m-losning">Løsning</a>
-            <a class="side-link" href="#m-refleksjon">Refleksjon</a>
-          </nav>
+    <div class="case-content-wrap">
+      <nav class="timeline-nav" aria-label="Innholdsnavigasjon">
+        <div class="tl-track">
+          <a class="tl-item active" href="#m-context">
+            <div class="tl-icon">◎</div>
+            <div class="tl-text"><div class="tl-num">01</div><div class="tl-label">Kontekst</div></div>
+          </a>
+          <a class="tl-item" href="#m-problem">
+            <div class="tl-icon">△</div>
+            <div class="tl-text"><div class="tl-num">02</div><div class="tl-label">Problem</div></div>
+          </a>
+          <a class="tl-item" href="#m-innsikt">
+            <div class="tl-icon">◈</div>
+            <div class="tl-text"><div class="tl-num">03</div><div class="tl-label">Innsikt</div></div>
+          </a>
+          <a class="tl-item" href="#m-prosess">
+            <div class="tl-icon">⊞</div>
+            <div class="tl-text"><div class="tl-num">04</div><div class="tl-label">Prosess</div></div>
+          </a>
+          <a class="tl-item" href="#m-losning">
+            <div class="tl-icon">✦</div>
+            <div class="tl-text"><div class="tl-num">05</div><div class="tl-label">Løsning</div></div>
+          </a>
+          <a class="tl-item" href="#m-refleksjon">
+            <div class="tl-icon">◐</div>
+            <div class="tl-text"><div class="tl-num">06</div><div class="tl-label">Refleksjon</div></div>
+          </a>
+        </div>
+      </nav>
 
-          <div class="case-content">
-
-            <div class="case-block reveal" id="m-context">
-              <p class="block-label">Kontekst</p>
-              <h3 class="block-title">Markedsscreening på norsk kontinentalsokkel</h3>
-              <p class="block-text">
-                Portfolio Map er en webapplikasjon som lar eksplorasjonsteam og Business Development-
-                managere visualisere og sammenligne selskapsporteføljer på norsk kontinentalsokkel.
-                Brukerne kan se lisenser, felt, brønner, CCS-lisenser og APA-runder på ett interaktivt kart.
-              </p>
-              <p class="block-text">
-                Brukerne er fageksperter med høy datakompetanse – men lav toleranse for kompliserte
-                grensesnitt. De screener markedet raskt og trenger svar, ikke opplæring.
-              </p>
-              <div class="case-visual visual-map-full reveal">
-                <span style="color:rgba(255,255,255,.15);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til skjermbilde av Portfolio Map her ]</span>
-                <span class="visual-label">Portfolio Map – overordnet kartvisning</span>
-              </div>
-            </div>
-
-            <div class="case-block reveal" id="m-problem">
-              <p class="block-label">Problem</p>
-              <h3 class="block-title">Komplekse geodata skal gi rask innsikt</h3>
-              <p class="block-text">
-                Kartdata er per definisjon komplekst. Lisenser, felt, brønner, CCS-lisenser og
-                produksjonsdata skal vises samtidig og gi rask beslutningsstøtte – ikke kreve
-                tolkningsarbeid av brukeren.
-              </p>
-              <div class="insight-box">
-                <p>"Det mest krevende var ikke hva som skulle vises – men hva som skulle skjules."</p>
-              </div>
-              <p class="block-text">
-                I tillegg skulle kartet støtte sammenligning av flere selskapers posisjoner side om side,
-                noe som stiller høye krav til visuell prioritering og filterarkitektur.
-              </p>
-            </div>
-
-            <div class="case-block reveal" id="m-innsikt">
-              <p class="block-label">Innsikt</p>
-              <h3 class="block-title">Kartet er scenen – sidepanelet er der beslutningen tas</h3>
-              <p class="block-text">
-                Kartflaten er primærgrensesnittet, men sidepanelet er like viktig. Det er der brukeren
-                faktisk leser av informasjon, sammenligner data og tar beslutninger. En vanlig feil i
-                kartapplikasjoner er å behandle sidepanelet som sekundært.
-              </p>
-              <p class="block-text">
-                Brukerne screener raskt: de vil filtrere, sammenligne og bore ned – ikke studere en
-                legende. Interaksjonsdesignet måtte støtte en workflow som starter bredt og snevrer
-                seg inn, ikke omvendt.
-              </p>
-            </div>
-
-            <div class="case-block reveal" id="m-prosess">
-              <p class="block-label">Prosess</p>
-              <h3 class="block-title">Fra brukerflyt til komponent</h3>
-              <div class="process-steps">
-                <div class="process-step">
-                  <span class="step-num">1</span>
-                  <p class="step-text">Kartla primærscenarioet: «Finn alle lisenser eid av selskap X i Nordsjøen» – og designet en brukerflyt rundt det</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">2</span>
-                  <p class="step-text">Designet filterarkitektur og lagstruktur for kartet: hvilke lag er på som standard, hvilke er av, og hvordan toggles de</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">3</span>
-                  <p class="step-text">Utviklet click-to-inspect-funksjonalitet for sidepanelet – detaljvisning uten å forlate kartflaten</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">4</span>
-                  <p class="step-text">Itererte på visuell prioritering: fargekoding av selskaper, ikonografi for ulike datapunkter, lesbarhet mot mørk kartbakgrunn</p>
-                </div>
-                <div class="process-step">
-                  <span class="step-num">5</span>
-                  <p class="step-text">Tett samarbeid med frontend-utviklere gjennom implementeringen – justerte design basert på tekniske muligheter og begrensninger</p>
-                </div>
-              </div>
-
-              <div class="case-visual visual-map-full reveal" style="aspect-ratio:16/7">
-                <span style="color:rgba(255,255,255,.15);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til wireframes / brukerflytdiagram her ]</span>
-                <span class="visual-label">Brukerflyt og komponentdesign</span>
-              </div>
-            </div>
-
-            <div class="case-block reveal" id="m-losning">
-              <p class="block-label">Løsning</p>
-              <h3 class="block-title">Ett klikk fra oversikt til detalj</h3>
-              <p class="block-text">
-                Et interaktivt kart med lagbasert datavisning, filtrerbart per selskap, område og
-                asset-type. Alle datakilder fra NPD er integrert og alltid oppdaterte.
-              </p>
-              <p class="block-text">
-                Klikk på ethvert element – felt, lisens, brønn – åpner et detaljpanel med statistikk,
-                historikk og relaterte assets, uten å forlate kartflaten. Filterpanelet er designet
-                for å støtte rask screeningen: bredt inn, fort ned til det relevante.
-              </p>
-              <div class="case-visual visual-map-full reveal">
-                <span style="color:rgba(255,255,255,.15);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500">[ Legg til skjermbilder av sidepanel og filterkomponenter her ]</span>
-                <span class="visual-label">Sidepanel – click-to-inspect</span>
-              </div>
-            </div>
-
-            <div class="case-block reveal" id="m-refleksjon">
-              <p class="block-label">Refleksjon</p>
-              <h3 class="block-title">Å prioritere for eksperter er ikke enkelt</h3>
-              <p class="block-text">
-                Å designe for domeneeksperter er annerledes enn å designe for «vanlige» brukere.
-                De vil ha alt – og de vil ha det fort. Å prioritere informasjon for noen som vet
-                nøyaktig hva de trenger, men som ikke vil kaste bort tid på å finne det, er
-                vanskeligere enn å lage noe enkelt fra bunnen av.
-              </p>
-              <p class="block-text">
-                Jeg lærte at «forenkle» ikke betyr «fjerne» – det betyr å organisere slik at
-                det komplekse blir tilgjengelig uten å bli forvirrende. Det krever dyp forståelse
-                av brukerens mentale modell, ikke bare god smak.
-              </p>
-            </div>
-
+      <div>
+        <div class="case-block reveal" id="m-context">
+          <p class="block-eyebrow">Kontekst</p>
+          <h3 class="block-title">Markedsscreening på norsk kontinentalsokkel</h3>
+          <p class="block-text">Portfolio Map er en webapplikasjon som lar eksplorasjonsteam og Business Development-managere visualisere og sammenligne selskapsporteføljer på norsk kontinentalsokkel. Brukerne kan se lisenser, felt, brønner, CCS-lisenser og APA-runder på ett interaktivt kart.</p>
+          <p class="block-text">Brukerne er fageksperter med høy datakompetanse – men lav toleranse for kompliserte grensesnitt. De screener markedet raskt og trenger svar, ikke opplæring.</p>
+          <div class="case-visual vis-map reveal">
+            <img class="case-visual-image" src="pocket.png" alt="Portfolio Map overordnet kartvisning" />
+            <span class="vis-label">Portfolio Map – helhetsbilde (kart, liste og detaljpanel)</span>
           </div>
+        </div>
+
+        <div class="case-block reveal" id="m-problem">
+          <p class="block-eyebrow">Problem</p>
+          <h3 class="block-title">Komplekse geodata skal gi rask innsikt</h3>
+          <p class="block-text">Kartdata er per definisjon komplekst. Lisenser, felt, brønner, CCS-lisenser og produksjonsdata skal vises samtidig og gi rask beslutningsstøtte – ikke kreve tolkningsarbeid av brukeren.</p>
+          <div class="pull-quote">
+            <p>"Det mest krevende var ikke hva som skulle vises – men hva som skulle skjules."</p>
+          </div>
+          <p class="block-text">I tillegg skulle kartet støtte sammenligning av flere selskapers posisjoner side om side, noe som stiller høye krav til visuell prioritering og filterarkitektur.</p>
+        </div>
+
+        <div class="case-block reveal" id="m-innsikt">
+          <p class="block-eyebrow">Innsikt</p>
+          <h3 class="block-title">Kartet er scenen – sidepanelet er der beslutningen tas</h3>
+          <p class="block-text">Kartflaten er primærgrensesnittet, men sidepanelet er like viktig. Det er der brukeren faktisk leser av informasjon, sammenligner data og tar beslutninger. En vanlig feil i kartapplikasjoner er å behandle sidepanelet som sekundært.</p>
+          <p class="block-text">Brukerne screener raskt: de vil filtrere, sammenligne og bore ned – ikke studere en legende. Interaksjonsdesignet måtte støtte en workflow som starter bredt og snevrer seg inn.</p>
+        </div>
+
+        <div class="case-block reveal" id="m-prosess">
+          <p class="block-eyebrow">Prosess</p>
+          <h3 class="block-title">Fra brukerflyt til komponent</h3>
+          <div class="process-list">
+            <div class="process-item"><span class="p-num">1.</span><p class="p-text">Kartla primærscenarioet: «Finn alle lisenser eid av selskap X i Nordsjøen» – og designet en brukerflyt rundt det</p></div>
+            <div class="process-item"><span class="p-num">2.</span><p class="p-text">Designet filterarkitektur og lagstruktur for kartet: hvilke lag er på som standard, hvilke er av, og hvordan toggles de</p></div>
+            <div class="process-item"><span class="p-num">3.</span><p class="p-text">Utviklet click-to-inspect-funksjonalitet for sidepanelet – detaljvisning uten å forlate kartflaten</p></div>
+            <div class="process-item"><span class="p-num">4.</span><p class="p-text">Itererte på visuell prioritering: fargekoding av selskaper, ikonografi, lesbarhet mot mørk kartbakgrunn</p></div>
+            <div class="process-item"><span class="p-num">5.</span><p class="p-text">Tett samarbeid med frontend-utviklere – justerte design basert på tekniske muligheter og begrensninger</p></div>
+          </div>
+          <div class="process-shot-grid reveal">
+            <figure class="process-shot-card">
+              <img class="process-shot" src="pocket 2.png" alt="Portfolio Map prosessbilde 1: filter- og lagstruktur" />
+              <figcaption class="process-shot-caption">Steg 1–2: Filter- og lagstruktur definert for rask screening av operatører, lisens- og produkttyper.</figcaption>
+            </figure>
+            <figure class="process-shot-card">
+              <img class="process-shot" src="pocket1.png" alt="Portfolio Map prosessbilde 2: detaljpanel for valgt lisens" />
+              <figcaption class="process-shot-caption">Steg 3: Click-to-inspect med detaljpanel (operatør, status, datoer og eierskap) uten å forlate kartflaten.</figcaption>
+            </figure>
+            <figure class="process-shot-card">
+              <img class="process-shot" src="pcket3.png" alt="Portfolio Map prosessbilde 3: komplett visning med panel og kart" />
+              <figcaption class="process-shot-caption">Steg 4–5: Visuell prioritering og lesbarhet iterert i komplett visning med venstremeny, kart og høyrepanel samtidig.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="case-block reveal" id="m-losning">
+          <p class="block-eyebrow">Løsning</p>
+          <h3 class="block-title">Ett klikk fra oversikt til detalj</h3>
+          <p class="block-text">Et interaktivt kart med lagbasert datavisning, filtrerbart per selskap, område og asset-type. Alle datakilder fra NPD er integrert og alltid oppdaterte.</p>
+          <p class="block-text">Klikk på ethvert element åpner et detaljpanel med statistikk, historikk og relaterte assets – uten å forlate kartflaten. Filterpanelet er designet for rask screening: bredt inn, fort ned til det relevante.</p>
+          <div class="solution-visuals reveal">
+            <figure class="solution-shot-card">
+              <img class="solution-shot" src="pocket 2.png" alt="Portfolio Map filter- og lagkontroller i grensesnittet" />
+              <figcaption class="solution-shot-caption">Filter og lagstyring gjør det mulig å snevre inn store datamengder raskt og målrettet.</figcaption>
+            </figure>
+            <figure class="solution-shot-card">
+              <img class="solution-shot" src="pcket3.png" alt="Portfolio Map sidepanel med detaljinnsikt" />
+              <figcaption class="solution-shot-caption">Click-to-inspect åpner detaljpanel med nøkkeldata uten at brukeren mister kartkonteksten.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="case-block reveal" id="m-refleksjon">
+          <p class="block-eyebrow">Refleksjon</p>
+          <h3 class="block-title">Å prioritere for eksperter er ikke enkelt</h3>
+          <p class="block-text">Å designe for domeneeksperter er annerledes enn å designe for «vanlige» brukere. De vil ha alt – og de vil ha det fort. Å prioritere informasjon for noen som vet nøyaktig hva de trenger er vanskeligere enn å lage noe enkelt fra bunnen av.</p>
+          <p class="block-text">Jeg lærte at «forenkle» ikke betyr «fjerne» – det betyr å organisere slik at det komplekse blir tilgjengelig uten å bli forvirrende. Det krever dyp forståelse av brukerens mentale modell, ikke bare god smak.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="container">
-      <p class="contact-eyebrow reveal">La oss snakke</p>
-      <h2 class="contact-heading reveal">Klar for neste<br><em>prosjekt.</em></h2>
-      <p class="contact-text reveal">
-        Jeg er tilgjengelig for nye muligheter og setter pris på en uformell prat
-        om hva dere jobber med og hva dere ser etter.
-      </p>
-      <div class="contact-links reveal">
-        <a class="btn btn-light" href="mailto:karinalyssand@live.com">Send meg en e-post</a>
-        <a class="btn btn-outline-light" href="https://www.linkedin.com/in/karina-bygstad-lyssand-676493252/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <h2 class="contact-heading">La oss<br>lage noe<br><em>bra.</em></h2>
+        <p class="contact-text">Jeg er tilgjengelig for roller der frontend og UX henger tett sammen – og der det er en fordel at én person kan både designe og implementere løsningen.</p>
+      </div>
+      <div class="contact-right reveal reveal-delay-1">
+        <a class="contact-btn" href="mailto:karinalyssand@live.com">
+          <div>
+            <div class="contact-btn-label">Send e-post</div>
+            <div class="contact-btn-sub">karinalyssand@live.com</div>
+          </div>
+          <span class="contact-btn-arrow">→</span>
+        </a>
+        <a class="contact-btn" href="https://www.linkedin.com/in/karina-bygstad-lyssand-676493252/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="contact-btn-label">LinkedIn</div>
+            <div class="contact-btn-sub">Karina Bygstad Lyssand</div>
+          </div>
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a class="contact-btn" href="karina-lyssand-cv.pdf" download>
+          <div>
+            <div class="contact-btn-label">Last ned CV</div>
+            <div class="contact-btn-sub">PDF, oppdatert 2025</div>
+          </div>
+          <span class="contact-btn-arrow">↓</span>
+        </a>
       </div>
     </div>
   </section>
 
   <footer>
-    <span>© 2025 Karina</span>
-    <span>UX · Visuell design · Frontend</span>
+    <a class="footer-logo" href="#hero">Karina<span>.</span></a>
+    <p>Frontend · UX · Produktutvikling</p>
+    <p>© 2025</p>
   </footer>
 
   <script>
-    // Nav scroll state
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-    reveals.forEach(el => observer.observe(el));
-
-    // Sidebar active link highlight
-    const sideLinks = document.querySelectorAll('.side-link');
-    const sections = document.querySelectorAll('[id^="g-"], [id^="m-"]');
-
-    const linkObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          sideLinks.forEach(l => l.classList.remove('active'));
-          const active = document.querySelector(`.side-link[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { threshold: 0.4 });
-
-    sections.forEach(s => linkObserver.observe(s));
-
-    // Cycling word i hero
+    // Typewriter cycling word
     const words = ['enkelt.', 'tydelig.', 'vakkert.', 'forståelig.'];
     let current = 0;
     const wordEl = document.getElementById('hero-word');
 
     function cycleWord() {
+      // slide current out upward
       wordEl.classList.add('slide-out');
+
       setTimeout(() => {
         current = (current + 1) % words.length;
         wordEl.textContent = words[current];
+        // instantly position below, no transition
         wordEl.classList.remove('slide-out');
         wordEl.classList.add('slide-in-prep');
+
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             wordEl.classList.remove('slide-in-prep');
             wordEl.classList.add('slide-in');
-            setTimeout(() => wordEl.classList.remove('slide-in'), 500);
+
+            setTimeout(() => {
+              wordEl.classList.remove('slide-in');
+            }, 500);
           });
         });
       }, 420);
     }
-    setTimeout(() => setInterval(cycleWord, 2800), 2000);
+
+    // start after initial animation settles
+    setTimeout(() => {
+      setInterval(cycleWord, 2800);
+    }, 2000);
+
+    const nav = document.getElementById('main-nav');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // Timeline active state
+    const tlLinks = document.querySelectorAll('.tl-item');
+    const caseBlocks = document.querySelectorAll('.case-block[id]');
+
+    const tlObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          // find matching tl-item in same section
+          const id = e.target.id;
+          tlLinks.forEach(l => {
+            if (l.getAttribute('href') === '#' + id) {
+              // deactivate siblings in same nav
+              l.closest('.tl-track').querySelectorAll('.tl-item').forEach(s => s.classList.remove('active'));
+              l.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-80px 0px -40% 0px' });
+    caseBlocks.forEach(b => tlObs.observe(b));
   </script>
 
 </body>
