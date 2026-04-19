@@ -457,54 +457,44 @@
     }
 
     .case-body { padding: 5rem 0; }
-    /* Sticky horisontal undermeny (full bredde — unngår overlap mot innhold) */
+
+    /* Sticky subnav — minimal underline style */
     .case-subnav {
       display: flex;
       flex-wrap: wrap;
-      align-items: stretch;
       gap: 0;
       position: sticky;
-      top: 5.75rem;
+      top: 4rem;
       z-index: 15;
       background: var(--bg);
-      padding: 0.65rem 1rem;
-      margin: 0 0 2.25rem;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      box-shadow: 0 4px 24px rgba(28, 25, 23, 0.08);
+      border-bottom: 1px solid var(--border);
+      margin: 0 0 3.5rem;
+      padding: 0;
     }
     .case-section--alt .case-subnav {
       background: var(--bg2);
-      box-shadow: 0 4px 24px rgba(28, 25, 23, 0.06);
     }
     .side-link {
       display: inline-flex;
       align-items: center;
-      font-size: .82rem;
+      font-size: .78rem;
       font-weight: 400;
       color: var(--ink3);
       text-decoration: none;
-      padding: .55rem 1.15rem;
-      margin: 0;
-      border-left: none;
-      border-right: 1px solid var(--border);
-      letter-spacing: .02em;
-      transition: color .2s, background .2s;
+      padding: .9rem 1.25rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
       white-space: nowrap;
     }
-    .side-link:first-child { padding-left: .35rem; }
-    .side-link:last-child {
-      border-right: none;
-      padding-right: .35rem;
-    }
-    .side-link:hover {
-      color: var(--accent);
-      background: rgba(43, 84, 64, 0.06);
-    }
+    .side-link:first-child { padding-left: 0; }
+    .side-link:hover { color: var(--ink); }
     .side-link.active {
       color: var(--accent);
       font-weight: 500;
-      background: rgba(43, 84, 64, 0.1);
+      border-bottom-color: var(--accent);
     }
 
     .case-content {}
@@ -711,13 +701,14 @@
       .cases-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .case-subnav {
-        margin-bottom: 1.75rem;
-        padding: 0.55rem 0.75rem;
-        top: 5.25rem;
+        top: 3.75rem;
+        margin-bottom: 2rem;
+        overflow-x: auto;
+        flex-wrap: nowrap;
       }
       .side-link {
-        padding: 0.45rem 0.85rem;
-        font-size: 0.78rem;
+        padding: .75rem 1rem;
+        font-size: .72rem;
       }
       .hero-title { font-size: 2.2rem; }
     }
