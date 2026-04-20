@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karina Lyssand — UX-design & frontend-utvikling</title>
+  <title>Karina Lyssand - UX-design & frontend-utvikling</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
@@ -494,22 +494,25 @@
     .panel-row { height: 10px; background: rgba(255,255,255,.1); border-radius: 1px; }
     .panel-row.s { width: 55%; }
 
-    /* ─── ABOUT — tre lyse bento-bokser ─── */
+    /* ─── ABOUT , tre lyse bento-bokser ─── */
     #about {
       border-top: 1px solid var(--border);
       background: var(--bg);
     }
     .about-bento {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: minmax(260px, 0.86fr) minmax(400px, 1.14fr);
+      grid-template-areas:
+        "profile quote"
+        "profile skills";
+      gap: 16px;
       align-items: stretch;
     }
     .about-bento .bento-card {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -519,10 +522,35 @@
       box-shadow: 0 12px 40px rgba(24, 22, 15, .07);
       border-color: rgba(213, 209, 202, .95);
     }
+    .bento-profile {
+      grid-area: profile;
+      padding-top: 32px;
+    }
+    .bento-philosophy {
+      grid-area: quote;
+      justify-content: center;
+      padding-top: 1.35rem;
+      padding-bottom: 1.35rem;
+      width: calc(100% - 15px);
+      justify-self: start;
+    }
+    .bento-skills {
+      grid-area: skills;
+      width: calc(100% - 15px);
+      justify-self: start;
+    }
     .bento-profile-head {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .8rem;
+      margin-bottom: 32px;
+    }
+    .bento-profile-head > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .bento-photo-wrap {
       width: 88px;
@@ -562,6 +590,10 @@
       line-height: 1.75;
       margin: 0;
     }
+    .bento-profile .bento-card-bio {
+      text-align: left;
+      width: 100%;
+    }
     .bento-card-label {
       font-family: var(--sans);
       font-size: .6rem;
@@ -571,22 +603,22 @@
       color: var(--ink3);
       margin: 0 0 .35rem;
     }
-    .bento-quote-mark {
-      font-family: var(--serif);
-      font-size: 2rem;
-      color: var(--accent2);
-      line-height: 1;
-      display: block;
-      margin-bottom: .5rem;
-    }
     .bento-quote-text {
       font-family: var(--serif);
-      font-size: .98rem;
+      font-size: 1.04rem;
       font-style: italic;
       color: var(--ink2);
-      line-height: 1.65;
+      line-height: 1.58;
       margin: 0;
     }
+    .bento-quote-text::before,
+    .bento-quote-text::after {
+      font-style: normal;
+      color: var(--accent2);
+      font-weight: 600;
+    }
+    .bento-quote-text::before { content: '" '; }
+    .bento-quote-text::after { content: ' "'; }
     .bento-skill-list {
       list-style: none;
       margin: 0;
@@ -601,10 +633,7 @@
       color: var(--ink2);
       padding: .5rem 0;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: .5rem;
+      display: block;
     }
     .bento-skill-item:last-child { border-bottom: none; }
     .bento-skill-dot {
@@ -858,6 +887,9 @@
       gap: 10px;
       margin-top: 1.25rem;
     }
+    #case-map #m-prosess .process-shot-grid {
+      grid-template-columns: 1fr 1fr;
+    }
     .process-shot-card {
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -877,6 +909,13 @@
       font-size: .7rem;
       color: var(--ink2);
       line-height: 1.45;
+    }
+    #case-map .process-shot {
+      height: auto;
+      aspect-ratio: auto;
+      object-fit: cover;
+      object-position: center;
+      background: transparent;
     }
 
     .reflection-box {
@@ -899,7 +938,7 @@
     .case-hero {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 6rem 3rem 5rem;
+      padding: 6rem 3rem 0;
       border-bottom: 1px solid var(--border);
     }
     .case-hero-num {
@@ -932,7 +971,7 @@
       display: flex;
       gap: 0;
       margin-top: 3rem;
-      padding-top: 2.5rem;
+      padding: 2.25rem 0;
       border-top: 1px solid var(--border);
       flex-wrap: wrap;
     }
@@ -1323,7 +1362,13 @@
       .hero-row { flex-direction: column; align-items: flex-start; gap: 2rem; }
       .hero-stats { gap: 2rem; }
       .section { padding: 5rem 1.5rem; }
-      .about-bento { grid-template-columns: 1fr; }
+      .about-bento {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "profile"
+          "quote"
+          "skills";
+      }
       .case-content-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
       .timeline-nav { position: static; height: auto; }
       .tl-track { height: auto; flex-direction: row; flex-wrap: wrap; gap: .5rem; justify-content: flex-start; }
@@ -1333,7 +1378,7 @@
       .tl-num { display: none; }
       .process-shot-grid { grid-template-columns: 1fr; }
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .case-hero { padding: 4rem 1.5rem 3rem; }
+      .case-hero { padding: 4rem 1.5rem 0; }
       .case-meta-row { gap: 1.5rem; }
       .case-meta-item { padding-right: 1.5rem; margin-right: 1.5rem; }
     }
@@ -1365,7 +1410,7 @@
       </h1>
 
       <p class="hero-sub">
-        Jeg designer og utvikler digitale løsninger, fra brukerinnsikt til produksjonsklar frontend.</p>
+        Jeg designer og utvikler digitale løsninger, fra brukerinnsikt til produksjonsklar kode.</p>
 
       <div class="hero-cta-row">
         <a class="btn btn-primary btn-arrow" href="#cases">Se prosjektene</a>
@@ -1417,12 +1462,12 @@
         <a class="case-card-new" href="#case-glex">
           <div class="case-card-visual-new visual-glex-hero">
             <span class="case-card-num">01</span>
-            <img class="case-card-image" src="etter.png" alt="Etter-bilde fra redesign av Glex" />
+            <img class="case-card-image" src="etter.png" alt="Etter-bilde fra redesign av klienten" />
           </div>
           <div class="case-card-info">
             <div class="case-card-info-left">
-              <p class="case-card-tag">Websideredesign · UX · Informasjonsarkitektur · Figma</p>
-              <h2 class="case-card-title">Glex.no — Én plattform, to målgrupper</h2>
+              <p class="case-card-tag">Webdesign · UX · Informasjonsarkitektur</p>
+              <h2 class="case-card-title">B2B SaaS-redesign, en plattform - to målgrupper</h2>
             </div>
             <span class="case-card-cta">Les →</span>
           </div>
@@ -1431,12 +1476,12 @@
         <a class="case-card-new" href="#case-map">
           <div class="case-card-visual-new visual-map-hero">
             <span class="case-card-num">02</span>
-            <img class="case-card-image" src="pocket.png" alt="Portfolio Map skjermbilde" />
+            <img class="case-card-image" src="pocket.png" alt="kartapplikasjonen skjermbilde" />
           </div>
           <div class="case-card-info">
             <div class="case-card-info-left">
-              <p class="case-card-tag">Kartapplikasjon · Frontend · Svelte · UX · Datavisualisering</p>
-              <h2 class="case-card-title">Portfolio Map — Geodata uten opplæring</h2>
+              <p class="case-card-tag">Kartapplikasjon · Frontend · UX · Datavisualisering</p>
+              <h2 class="case-card-title">Kartapplikasjon, Geodata for beslutningstakere</h2>
             </div>
             <span class="case-card-cta">Les →</span>
           </div>
@@ -1459,35 +1504,33 @@
             </div>
             <div>
               <div class="bento-card-name">Karina Lyssand</div>
-              <div class="bento-card-role">UX &amp; grafisk designer</div>
+              <div class="bento-card-role">Frontend & UX-design</div>
             </div>
           </div>
           <p class="bento-card-bio">
-            Jeg er frontend-utvikler og UX-designer med bakgrunn i frontend og grafisk design. I dag jobber jeg med å utvikle og designe datadrevne produkter for energibransjen, der jeg tar løsninger fra idé til ferdig implementert grensesnitt.
+            Jeg er frontend-utvikler med UX-kompetanse og erfaring fra grafisk design. I dag utvikler jeg datadrevne løsninger for energibransjen, fra brukerinnsikt til produksjonsklar frontend.
           </p>
           <p class="bento-card-bio" style="margin-top:.75rem">
-            Jeg kombinerer teknisk gjennomføringsevne med brukerinnsikt, struktur og visuell presisjon – og tar eierskap til hele prosessen, fra konsept til produksjon.
+            Jeg har også erfaring som frilanser innen webdesign i low-code-verktøy og digital markedsføring for små og mellomstore bedrifter, med ansvar for design, innhold og publisering.
           </p>
         </article>
 
         <article class="bento-card bento-philosophy reveal reveal-delay-1">
           <p class="bento-card-label">Designfilosofi</p>
-          <span class="bento-quote-mark" aria-hidden="true">"</span>
           <p class="bento-quote-text">
-            God UX må tåle virkeligheten i kode. Jeg designer løsninger som lar seg bygge – og bygger dem.
+            For meg handler godt design om å skape klarhet i det komplekse.
           </p>
         </article>
 
         <article class="bento-card bento-skills reveal reveal-delay-2">
           <p class="bento-card-label">Kompetanse</p>
           <ul class="bento-skill-list">
-            <li class="bento-skill-item">Frontend-utvikling (HTML · CSS · JavaScript) <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">Svelte / SvelteKit <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">UX Design &amp; brukerinnsikt <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">Informasjonsarkitektur <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">Figma &amp; prototyping <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">Universell utforming (WCAG) <span class="bento-skill-dot"></span></li>
-            <li class="bento-skill-item">Designsystemer &amp; design tokens <span class="bento-skill-dot"></span></li>
+            <li class="bento-skill-item">Frontend-utvikling</li>
+            <li class="bento-skill-item">UX design og brukerinnsikt</li>
+            <li class="bento-skill-item">Informasjonsarkitektur og struktur</li>
+            <li class="bento-skill-item">Figma og prototyping</li>
+            <li class="bento-skill-item">Universell utforming (WCAG)</li>
+            <li class="bento-skill-item">Designsystemer og komponentbasert utvikling</li>
           </ul>
         </article>
 
@@ -1498,25 +1541,21 @@
   <!-- CASE 1 -->
   <section id="case-glex" class="case-section-full">
     <div class="case-hero reveal">
-      <p class="case-hero-num">Prosjekt 01 / Websideredesign</p>
+      <p class="case-hero-num">Prosjekt 01, Webdesign & informasjonsarkitektur</p>
       <h2 class="case-hero-title">"Nettsiden snakket til <em>alle</em> og overbeviste <em>ingen.</em>"</h2>
-      <p class="case-hero-sub">Glex trengte ikke en ny nettside. De trengte klarhet om hvem de snakket til – og to distinkte fortellinger som møtte hver målgruppe på deres premisser.</p>
+      <p class="case-hero-sub">Selskapet trengte ikke en ny nettside. De trengte klarhet i hvem de snakket til. Vi bygget to tydelige fortellinger for to ulike målgrupper.</p>
       <div class="case-meta-row">
         <div class="case-meta-item">
           <p class="meta-label">Rolle</p>
-          <p class="meta-value">UX Designer, visuell design</p>
+          <p class="meta-value">UX, frontend utvikling</p>
         </div>
         <div class="case-meta-item">
           <p class="meta-label">Verktøy</p>
-          <p class="meta-value">Figma, komponentsystemer</p>
+          <p class="meta-value">Figma, SvelteKit, Kirby CMS</p>
         </div>
         <div class="case-meta-item">
           <p class="meta-label">Kontekst</p>
-          <p class="meta-value">Glex AS, intern redesign</p>
-        </div>
-        <div class="case-meta-item" style="border-right:none">
-          <p class="meta-label">Figma</p>
-          <a class="proto-btn" href="https://www.figma.com/design/sk1d4WjwRBdGhGMShhk583" target="_blank" rel="noopener">Åpne design ↗</a>
+          <p class="meta-value">B2B webdesign · Energisektor</p>
         </div>
       </div>
     </div>
@@ -1549,239 +1588,241 @@
         <div class="case-block reveal" id="g-problem">
           <p class="block-eyebrow">Problem</p>
           <h3 class="block-title">Én plattform, to målgrupper, null struktur</h3>
-          <p class="block-text">Glex sitt produkttilbud – Glex Energy og fem webapper – ble presentert som en ustrukturert liste uten hierarki. Daglige brukere (exploration managers, business dev managers og asset managers) trengte teknisk dybde og dokumentasjon. Beslutningstakere og innkjøpere trengte ROI-argumenter og svar på «hvorfor Glex fremfor alternativene». Nettsiden ga ingen av dem det de kom for.</p>
+          <p class="block-text">Selskapets produkttilbud bestod av en kjerneplatform og fem webapplikasjoner. Alt ble vist som en liste uten tydelig hierarki. Fagbrukere med spesialisert domenekunnskap trengte teknisk dybde. Beslutningstakere trengte tydelig verdi og klare svar på hvorfor de skulle velge løsningen.</p>
           <div class="pull-quote">
-            <p>"Det krevende var ikke å designe – det var å avklare hva vi egentlig solgte."</p>
+            <p>"Det krevende var ikke å designe, det var å avklare hva vi egentlig solgte."</p>
           </div>
 
           <!-- BEFORE / AFTER -->
           <div class="before-after">
             <div class="ba-panel old">
               <div class="ba-badge b">Før</div>
-              <img class="ba-shot" src="før.png" alt="Glex nettside før redesign" />
+              <img class="ba-shot" src="før.png" alt="klienten nettside før redesign" />
             </div>
             <div class="ba-panel new">
               <div class="ba-badge a">Etter</div>
-              <img class="ba-shot" src="etter.png" alt="Glex nettside etter redesign" />
+              <img class="ba-shot" src="etter.png" alt="klienten nettside etter redesign" />
             </div>
           </div>
           <div class="ba-caption">
-            <span class="ba-cap-txt">Likestilte produktkort uten hierarki — ingen klar målgruppe</span>
-            <span class="ba-cap-txt">To inngangsveier · Platform overview + Why Glex</span>
+            <span class="ba-cap-txt">Likestilte produktkort uten hierarki, ingen tydelig relevans for brukeren</span>
+            <span class="ba-cap-txt">To innganger, Platform overview + Why selskapet</span>
           </div>
         </div>
 
         <!-- PROSESS -->
         <div class="case-block reveal" id="g-prosess">
-          <p class="block-eyebrow">Prosess</p>
-          <h3 class="block-title">Fra kaos til klarhet</h3>
+  <p class="block-eyebrow">Prosess</p>
+  <h3 class="block-title">Fra kaos til klarhet</h3>
 
-          <div class="process-phases">
+  <div class="process-phases">
 
-            <div class="process-phase">
-              <p class="phase-label">Forstå</p>
-              <div class="phase-steps">
-                <div class="phase-step">
-                  <span class="phase-step-num">01</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Konkurranseanalyse</div>
-                    <div class="phase-step-desc">Atlassian, FutureOn og Miter gjennomgått for IA-mønstre, målgruppestruktur og kommunikasjonsstrategi</div>
-                  </div>
-                </div>
-                <div class="phase-step">
-                  <span class="phase-step-num">02</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">IA-audit</div>
-                    <div class="phase-step-desc">Eksisterende struktur kartlagt — bruddpunkter, uklart hierarki og manglende målgruppeorientering identifisert</div>
-                  </div>
-                </div>
-              </div>
-              <div class="artifact-card">
-                <div class="artifact-card-header">
-                  <span class="artifact-card-label">Artefakt — Konkurranseanalyse</span>
-                  <span class="artifact-card-phase">Forstå</span>
-                </div>
-                <div class="artifact-card-body">
-                  <div class="comp-analysis">
-                    <div class="comp-item">
-                      <div class="comp-item-name">Atlassian</div>
-                      <div class="comp-bar-row"><div class="comp-bar full"></div></div>
-                      <div class="comp-item-tag">Role-based nav</div>
-                    </div>
-                    <div class="comp-item">
-                      <div class="comp-item-name">FutureOn</div>
-                      <div class="comp-bar-row"><div class="comp-bar mid"></div></div>
-                      <div class="comp-item-tag">Product-first</div>
-                    </div>
-                    <div class="comp-item">
-                      <div class="comp-item-name">Miter</div>
-                      <div class="comp-bar-row"><div class="comp-bar full"></div></div>
-                      <div class="comp-item-tag">Pain-point led</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="artifact-card" style="margin-top:.75rem">
-                <div class="artifact-card-header">
-                  <span class="artifact-card-label">Artefakt — IA-audit</span>
-                  <span class="artifact-card-phase">Forstå</span>
-                </div>
-                <div class="artifact-card-body">
-                  <div class="audit-rows">
-                    <div class="audit-row">
-                      <div class="audit-label">Hierarki</div>
-                      <div class="audit-bar-wrap"><div class="audit-bar red" style="width:15%"></div></div>
-                      <div class="audit-note">Mangler</div>
-                    </div>
-                    <div class="audit-row">
-                      <div class="audit-label">Målgruppeorientering</div>
-                      <div class="audit-bar-wrap"><div class="audit-bar red" style="width:10%"></div></div>
-                      <div class="audit-note">Ikke adressert</div>
-                    </div>
-                    <div class="audit-row">
-                      <div class="audit-label">Produkthierarki</div>
-                      <div class="audit-bar-wrap"><div class="audit-bar amber" style="width:35%"></div></div>
-                      <div class="audit-note">Uklart</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="process-phase">
-              <p class="phase-label">Definere</p>
-              <div class="phase-steps">
-                <div class="phase-step">
-                  <span class="phase-step-num">03</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Målgruppeanalyse</div>
-                    <div class="phase-step-desc">To primære målgrupper definert med ulike behov, motivasjoner og beslutningsmakt</div>
-                  </div>
-                </div>
-                <div class="phase-step">
-                  <span class="phase-step-num">04</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Strategisk innsikt</div>
-                    <div class="phase-step-desc">"To inngangsveier, én plattform" etablert som strukturerende designprinsipp</div>
-                  </div>
-                </div>
-              </div>
-              <div class="artifact-card">
-                <div class="artifact-card-header">
-                  <span class="artifact-card-label">Artefakt — Målgruppeanalyse</span>
-                  <span class="artifact-card-phase">Definere</span>
-                </div>
-                <div class="artifact-card-body">
-                  <div class="audience-cards">
-                    <div class="audience-card">
-                      <div class="audience-card-title">Brukere</div>
-                      <div class="audience-card-roles">Exploration · Asset · BD</div>
-                      <div class="audience-card-need">Teknisk dybde, dokumentasjon og rollebaserte bruksscenarioer</div>
-                    </div>
-                    <div class="audience-card">
-                      <div class="audience-card-title">Beslutningstakere</div>
-                      <div class="audience-card-roles">C-suite · Innkjøper</div>
-                      <div class="audience-card-need">ROI-argumenter, tillit og tydelige kjøpsveier</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="process-phase">
-              <p class="phase-label">Designe</p>
-              <div class="phase-steps">
-                <div class="phase-step">
-                  <span class="phase-step-num">05</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Navigasjonskonsepter</div>
-                    <div class="phase-step-desc">To konsepter (platform-first og rolle-first) ble testet mot stakeholdernes beslutningsbehov, med fokus på hva som reduserte friksjon i første møte med produktet</div>
-                  </div>
-                </div>
-                <div class="phase-step">
-                  <span class="phase-step-num">06</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Innholdsstrategi</div>
-                    <div class="phase-step-desc">Kjernebudskap ble hentet fra faktisk salgs- og konferansemateriell, og strukturert rundt tre dokumenterte smertepunkter fremfor interne antagelser</div>
-                  </div>
-                </div>
-                <div class="phase-step">
-                  <span class="phase-step-num">07</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Wireframes & iterasjon</div>
-                    <div class="phase-step-desc">Wireframes ble brukt for å validere struktur tidlig: tydelig separasjon mellom teknisk orientert «Platform overview» og kommersiell «Why Glex»</div>
-                  </div>
-                </div>
-                <div class="phase-step">
-                  <span class="phase-step-num">08</span>
-                  <div class="phase-step-content">
-                    <div class="phase-step-title">Komponentbibliotek</div>
-                    <div class="phase-step-desc">Et komponentbibliotek i Figma sikret konsistent hierarki, gjenbrukbare mønstre og raskere overgang fra skisse til ferdig design</div>
-                  </div>
-                </div>
-              </div>
-              <div class="artifact-card">
-                <div class="artifact-card-header">
-                  <span class="artifact-card-label">Artefakt — Navigasjonskonsepter</span>
-                  <span class="artifact-card-phase">Designe</span>
-                </div>
-                <div class="artifact-card-body">
-                  <div class="nav-concepts">
-                    <div class="nav-concept">
-                      <div class="nav-concept-header"><span class="nav-concept-name">Rolle-first</span></div>
-                      <div class="nav-pills">
-                        <span class="nav-pill-item">Solutions</span>
-                        <span class="nav-pill-item">Products</span>
-                        <span class="nav-pill-item">Why Glex</span>
-                        <span class="nav-pill-item">Company</span>
-                      </div>
-                    </div>
-                    <div class="nav-concept chosen">
-                      <div class="nav-concept-header">
-                        <span class="nav-concept-name">Platform-first</span>
-                        <span class="nav-chosen-badge">Valgt</span>
-                      </div>
-                      <div class="nav-pills">
-                        <span class="nav-pill-item active">Platform</span>
-                        <span class="nav-pill-item active">Why Glex</span>
-                        <span class="nav-pill-item">Resources</span>
-                        <span class="nav-pill-item">Company</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="concept-visual-grid">
-                    <div class="concept-visual">
-                      <img class="concept-shot" src="rolefrist%20konept%201.png" alt="Konsept 1: rolle-first navigasjon" />
-                      <p class="concept-caption">Konsept 1 (rolle-first): tydelig rolleinngang, men mindre fokus på plattformens samlede verdi i første møte.</p>
-                    </div>
-                    <div class="concept-visual chosen">
-                      <img class="concept-shot" src="konsept%202%28platform%20first%29.png" alt="Konsept 2: platform-first navigasjon" />
-                      <p class="concept-caption">Konsept 2 (platform-first): valgte retning fordi den gir klarere produkthierarki og bedre overgang til «Why Glex».</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="artifact-card" style="margin-top:.75rem">
-                <div class="artifact-card-header">
-                  <span class="artifact-card-label">Artefakt — Wireframe (strukturvalidering)</span>
-                  <span class="artifact-card-phase">Designe</span>
-                </div>
-                <div class="artifact-card-body">
-                  <img class="wireframe-shot" src="wirefame.png" alt="Wireframe for redesign av Glex-hjemmesiden" />
-                  <p class="wireframe-note">Wireframen ble brukt til å teste informasjonsflyt og prioritering før visuell utforming. Dette gjorde det mulig å justere navigasjon, hero-budskap og innholdshierarki før high-fidelity design.</p>
-                </div>
-              </div>
-            </div>
-
+    <div class="process-phase">
+      <p class="phase-label">Forstå</p>
+      <div class="phase-steps">
+        <div class="phase-step">
+          <span class="phase-step-num">01</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Innholdsgjennomgang</div>
+            <div class="phase-step-desc">Eksisterende sider kartlagt side for side. Navigasjonsstruktur dokumentert, bruddpunkter notert og manglende innhold avdekket.</div>
           </div>
         </div>
+        <div class="phase-step">
+          <span class="phase-step-num">02</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Referanseanalyse</div>
+            <div class="phase-step-desc">Tre selskaper med lignende kompleksitet analysert for hvordan de løser presentasjonsutfordringen. Vi lærte av strukturen, ikke produktet.</div>
+          </div>
+        </div>
+      </div>
 
+      <div class="artifact-card">
+        <div class="artifact-card-header">
+          <span class="artifact-card-label">Steg 01 — Innholdsgjennomgang</span>
+          <span class="artifact-card-phase">Forstå</span>
+        </div>
+        <div class="artifact-card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.625rem .75rem">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+                <span style="font-size:.78rem;font-weight:500;color:var(--ink)">Forside</span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#ba7517;flex-shrink:0;margin-top:2px;display:block"></span>
+              </div>
+              <div style="font-size:.72rem;color:var(--ink2);line-height:1.4">Viser produkter, men uten tydelig hierarki. Uklart hvem siden snakker til.</div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.625rem .75rem">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+                <span style="font-size:.78rem;font-weight:500;color:var(--ink)">Produktsider</span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#e24b4a;flex-shrink:0;margin-top:2px;display:block"></span>
+              </div>
+              <div style="font-size:.72rem;color:var(--ink2);line-height:1.4">Fem produkter presentert likt. Ingen forklaring på hva som er kjerneprodukt.</div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.625rem .75rem">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+                <span style="font-size:.78rem;font-weight:500;color:var(--ink)">Hvorfor oss</span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#e24b4a;flex-shrink:0;margin-top:2px;display:block"></span>
+              </div>
+              <div style="font-size:.72rem;color:var(--ink2);line-height:1.4">Siden mangler. Ingen argumenter for beslutningstakere som vurderer kjøp.</div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.625rem .75rem">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+                <span style="font-size:.78rem;font-weight:500;color:var(--ink)">Kontakt</span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#1e4d38;flex-shrink:0;margin-top:2px;display:block"></span>
+              </div>
+              <div style="font-size:.72rem;color:var(--ink2);line-height:1.4">Fungerer. Enkel og tydelig kontaktside uten problemer.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:.75rem;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:5px;font-size:.68rem;color:var(--ink3)"><span style="width:6px;height:6px;border-radius:50%;background:#e24b4a;display:block"></span>Mangler</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.68rem;color:var(--ink3)"><span style="width:6px;height:6px;border-radius:50%;background:#ba7517;display:block"></span>Uklar</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.68rem;color:var(--ink3)"><span style="width:6px;height:6px;border-radius:50%;background:#1e4d38;display:block"></span>Fungerer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="artifact-card" style="margin-top:.75rem">
+        <div class="artifact-card-header">
+          <span class="artifact-card-label">Steg 02 — Referanseanalyse: Hva gjør andre selskaper med samme utfordring?</span>
+          <span class="artifact-card-phase">Forstå</span>
+        </div>
+        <div class="artifact-card-body">
+          <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;border:1px solid var(--border);border-radius:4px;overflow:hidden;font-size:.72rem">
+            <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Spørsmål vi stilte</div>
+            <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Atlassian</div>
+            <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Miter</div>
+            <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border)">FutureOn</div>
+
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Hvordan løser de flere målgrupper?</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Lar deg velge rolle øverst — innholdet tilpasser seg</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Åpner med problemet, ikke produktet</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);line-height:1.45">Bruker produktnavn som inngang</div>
+
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Hva møter deg øverst?</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Hva vil du oppnå?</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.45">Problemet du allerede har</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-bottom:1px solid var(--border);line-height:1.45">Liste over produkter</div>
+
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);border-right:1px solid var(--border);line-height:1.45">Hva tok vi med videre?</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-right:1px solid var(--border);line-height:1.45">Del opp etter målgruppe tidlig</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-right:1px solid var(--border);line-height:1.45">Start med problem, ikke funksjon</div>
+            <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);line-height:1.45">Unngå flat produktliste uten kontekst</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-phase">
+      <p class="phase-label">Definere</p>
+      <div class="phase-steps">
+        <div class="phase-step">
+          <span class="phase-step-num">03</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">To målgrupper, to behov</div>
+            <div class="phase-step-desc">Fagbrukere og beslutningstakere skilt ut med ulike behov, motivasjoner og inngangspunkter. Samme produkt, helt forskjellige spørsmål.</div>
+          </div>
+        </div>
+        <div class="phase-step">
+          <span class="phase-step-num">04</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Designprinsipp</div>
+            <div class="phase-step-desc">"Én plattform, to inngangsveier" ble det bærende prinsippet. All videre arkitektur og innhold forankret i dette valget.</div>
+          </div>
+        </div>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-card-header">
+          <span class="artifact-card-label">Steg 03 — Målgrupper</span>
+          <span class="artifact-card-phase">Definere</span>
+        </div>
+        <div class="artifact-card-body">
+          <div class="audience-cards">
+            <div class="audience-card">
+              <div class="audience-card-title">Fagbrukere</div>
+              <div class="audience-card-roles">Analytikere · Spesialister</div>
+              <div class="audience-card-need">Teknisk dybde, dokumentasjon og konkrete bruksscenarioer</div>
+            </div>
+            <div class="audience-card">
+              <div class="audience-card-title">Beslutningstakere</div>
+              <div class="audience-card-roles">Ledelse · Innkjøp</div>
+              <div class="audience-card-need">Forretningsverdi, tillit og klare kjøpsveier</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-phase">
+      <p class="phase-label">Designe</p>
+      <div class="phase-steps">
+        <div class="phase-step">
+          <span class="phase-step-num">05</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Navigasjonsstruktur</div>
+            <div class="phase-step-desc">To konsepter utviklet og vurdert internt. Platform-first valgt over rolle-first etter gjennomgang med teamet.</div>
+          </div>
+        </div>
+        <div class="phase-step">
+          <span class="phase-step-num">06</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Innhold og kommunikasjon</div>
+            <div class="phase-step-desc">Budskap hentet fra ekte salgsmateriale og konferansepresentasjoner. Tre reelle problemer ble grunnlaget for all kommunikasjon.</div>
+          </div>
+        </div>
+        <div class="phase-step">
+          <span class="phase-step-num">07</span>
+          <div class="phase-step-content">
+            <div class="phase-step-title">Wireframes og iterasjon</div>
+            <div class="phase-step-desc">Sidestruktur skissert i Figma, gjennomgått og raffinert i flere runder med intern review.</div>
+          </div>
+        </div>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-card-header">
+          <span class="artifact-card-label">Steg 05 — Navigasjonsstruktur</span>
+          <span class="artifact-card-phase">Designe</span>
+        </div>
+        <div class="artifact-card-body">
+          <div class="nav-concepts">
+            <div class="nav-concept">
+              <div class="nav-concept-header"><span class="nav-concept-name">Rolle-first</span></div>
+              <div class="nav-pills">
+                <span class="nav-pill-item">Solutions</span>
+                <span class="nav-pill-item">Products</span>
+                <span class="nav-pill-item">Why oss</span>
+                <span class="nav-pill-item">Company</span>
+              </div>
+              <div style="margin-top:.75rem;border:1px solid var(--border);border-radius:4px;overflow:hidden">
+                <img src="rolefrist konept 1.png" alt="Wireframe — Rolle-first navigasjonskonsept" style="width:100%;display:block">
+              </div>
+            </div>
+            <div class="nav-concept chosen">
+              <div class="nav-concept-header">
+                <span class="nav-concept-name">Platform-first</span>
+                <span class="nav-chosen-badge">Valgt</span>
+              </div>
+              <div class="nav-pills">
+                <span class="nav-pill-item active">Platform</span>
+                <span class="nav-pill-item active">Why oss</span>
+                <span class="nav-pill-item">Resources</span>
+                <span class="nav-pill-item">Company</span>
+              </div>
+              <div style="margin-top:.75rem;border:1px solid var(--border);border-radius:4px;overflow:hidden">
+                <img src="konsept 2(platform first).png" alt="Wireframe — Platform-first navigasjonskonsept" style="width:100%;display:block">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
         <!-- LØSNING -->
         <div class="case-block reveal" id="g-losning">
           <p class="block-eyebrow">Løsning</p>
           <h3 class="block-title">To sider med én hensikt hver</h3>
-          <p class="block-text"><strong>Platform overview</strong> ble en teknisk, brukerorientert side som forklarer hvordan plattformen fungerer operasjonelt – med produkthierarki, integrasjoner og rollebaserte bruksscenarioer.</p>
-          <p class="block-text"><strong>Why Glex</strong> ble en aktiv salgspitch rettet mot beslutningstakere: smertepunktbasert kommunikasjon, ROI-framing, konkurransedifferensiering og tydelige kjøpsveier.</p>
+          <p class="block-text"><strong>Platform overview</strong> ble en teknisk side som forklarte plattformen i praksis. Den viste produkthierarki, integrasjoner og konkrete bruksscenarier.</p>
+          <p class="block-text"><strong>Why selskapet</strong> ble en side for beslutningstakere. Den løftet reelle problemer, forretningsverdi og hva som skilte produktet fra alternativene.</p>
           <div class="solution-visuals">
             <figure class="solution-shot-card">
               <img class="solution-shot" src="etter.png" alt="Nettsiden etter redesign med tydelig struktur og budskap" />
@@ -1798,10 +1839,10 @@
         <div class="case-block reveal" id="g-refleksjon">
           <p class="block-eyebrow">Refleksjon</p>
           <h3 class="block-title">Design som tvinger frem viktige spørsmål</h3>
-          <p class="block-text">Det krevende var ikke å designe – det var å avklare hva vi egentlig solgte. En nettside kan ikke kommunisere det et selskap ikke har blitt enige om internt. Prosjektet tvang frem en intern produktposisjonering som manglet.</p>
+          <p class="block-text">Det krevende var ikke å designe, det var å avklare hva vi egentlig solgte. En nettside kan ikke kommunisere det et selskap ikke har blitt enige om internt. Prosjektet tvang frem en intern produktposisjonering som manglet.</p>
           <div class="reflection-box">
             <div class="reflection-label">Hva jeg lærte</div>
-            <div class="reflection-text">UX-design på strategisk nivå handler like mye om å stille riktige spørsmål til organisasjonen som om å løse brukerproblemer. Noen ganger er designerens viktigste bidrag å synliggjøre uklarheten — ikke bare løse den.</div>
+            <div class="reflection-text">På strategisk nivå handler UX om å stille de riktige spørsmålene tidlig. Designerens viktigste bidrag kan være å synliggjøre uklarhet før teamet bygger feil løsning.</div>
           </div>
         </div>
 
@@ -1812,25 +1853,21 @@
   <!-- CASE 2 -->
   <section id="case-map" class="case-section-full alt">
     <div class="case-hero reveal">
-      <p class="case-hero-num">Prosjekt 02 / Kartapplikasjon</p>
-      <h2 class="case-hero-title">Portfolio Map — Geodata for beslutningstakere,<br><em>uten opplæring</em></h2>
-      <p class="case-hero-sub">Interaksjonsdesign for en kartbasert webapplikasjon der komplekse geodata skal gi rask beslutningsstøtte for eksplorasjonsteam på norsk sokkel.</p>
+      <p class="case-hero-num">Prosjekt 02, Kartapplikasjon · Frontend og UX</p>
+      <h2 class="case-hero-title">Kartapplikasjon, Geodata for beslutningstakere</h2>
+      <p class="case-hero-sub">Frontend- og UX-arbeid på en kartbasert webapplikasjon. Målet var rask beslutningsstøtte for fagteam gjennom tydelig interaksjon, datavisning og effektiv flyt.</p>
       <div class="case-meta-row">
         <div class="case-meta-item">
           <p class="meta-label">Rolle</p>
-          <p class="meta-value">UX Designer, interaksjonsdesign</p>
+          <p class="meta-value">Frontend-utvikler og UX-designer</p>
         </div>
         <div class="case-meta-item">
           <p class="meta-label">Verktøy</p>
-          <p class="meta-value">Figma, Svelte (samarbeid)</p>
+          <p class="meta-value">SvelteKit, React, Mapbox GL, Figma</p>
         </div>
         <div class="case-meta-item">
           <p class="meta-label">Kontekst</p>
-          <p class="meta-value">Glex AS, produktutvikling</p>
-        </div>
-        <div class="case-meta-item" style="border-right:none">
-          <p class="meta-label">Fokus</p>
-          <p class="meta-value">Interaksjon · Dataviz · UI</p>
+          <p class="meta-value">Kartapplikasjon og datavisualisering i energibransjen</p>
         </div>
       </div>
     </div>
@@ -1868,54 +1905,83 @@
       <div>
         <div class="case-block reveal" id="m-context">
           <p class="block-eyebrow">Kontekst</p>
-          <h3 class="block-title">Markedsscreening på norsk kontinentalsokkel</h3>
-          <p class="block-text">Portfolio Map er en webapplikasjon som lar eksplorasjonsteam og Business Development-managere visualisere og sammenligne selskapsporteføljer på norsk kontinentalsokkel. Brukerne kan se lisenser, felt, brønner, CCS-lisenser og APA-runder på ett interaktivt kart.</p>
-          <p class="block-text">Brukerne er fageksperter med høy datakompetanse – men lav toleranse for kompliserte grensesnitt. De screener markedet raskt og trenger svar, ikke opplæring.</p>
+          <h3 class="block-title">Markedsscreening i energibransjen</h3>
+          <p class="block-text">Portfolio Map er en tilgangsstyrt kartmodul i en B2B-plattform, bygget med SvelteKit og Mapbox GL. Modulen samler lisenser, felt, funn, brønner, pipelines og selskapsdata i ett felles arbeidsflate.</p>
+          <p class="block-text">Målgruppen er domeneeksperter som jobber raskt. De trenger å filtrere på selskaper, forstå eierskap og gå fra oversikt til beslutning uten å bytte verktøy.</p>
           <div class="case-visual vis-map reveal">
-            <img class="case-visual-image" src="pocket.png" alt="Portfolio Map overordnet kartvisning" />
-            <span class="vis-label">Portfolio Map – helhetsbilde (kart, liste og detaljpanel)</span>
+            <img class="case-visual-image" src="pocketførste.png" alt="Portfolio Map med selskapssøk, filter og overordnet kartvisning" />
+            <span class="vis-label">Overordnet visning med selskapssøk og kartlag for rask screening i norsk sokkel.</span>
           </div>
         </div>
 
         <div class="case-block reveal" id="m-problem">
           <p class="block-eyebrow">Problem</p>
           <h3 class="block-title">Komplekse geodata skal gi rask innsikt</h3>
-          <p class="block-text">Kartdata er per definisjon komplekst. Lisenser, felt, brønner, CCS-lisenser og produksjonsdata skal vises samtidig og gi rask beslutningsstøtte – ikke kreve tolkningsarbeid av brukeren.</p>
+          <p class="block-text">Kartdata er komplekse. Lisenser, felt, brønner, spesialiserte lisenser og produksjonsdata måtte vises samtidig, uten å skape tolkningsarbeid.</p>
           <div class="pull-quote">
-            <p>"Det mest krevende var ikke hva som skulle vises – men hva som skulle skjules."</p>
+            <p>"Det mest krevende var ikke hva som skulle vises, men hva som skulle skjules."</p>
           </div>
-          <p class="block-text">I tillegg skulle kartet støtte sammenligning av flere selskapers posisjoner side om side, noe som stiller høye krav til visuell prioritering og filterarkitektur.</p>
+          <p class="block-text">Løsningen måtte også støtte rask sammenligning av flere selskaper side om side. Det stilte høye krav til visuell prioritering og filterarkitektur.</p>
         </div>
 
         <div class="case-block reveal" id="m-innsikt">
           <p class="block-eyebrow">Innsikt</p>
-          <h3 class="block-title">Kartet er scenen – sidepanelet er der beslutningen tas</h3>
-          <p class="block-text">Kartflaten er primærgrensesnittet, men sidepanelet er like viktig. Det er der brukeren faktisk leser av informasjon, sammenligner data og tar beslutninger. En vanlig feil i kartapplikasjoner er å behandle sidepanelet som sekundært.</p>
-          <p class="block-text">Brukerne screener raskt: de vil filtrere, sammenligne og bore ned – ikke studere en legende. Interaksjonsdesignet måtte støtte en workflow som starter bredt og snevrer seg inn.</p>
+          <h3 class="block-title">Kartet er scenen, sidepanelet gir beslutningsgrunnlaget</h3>
+          <p class="block-text">Kartflaten gir oversikt, men beslutningen tas i panelet. Der må data være lesbar, sammenlignbar og handlingsrettet med en gang.</p>
+          <p class="block-text">Derfor ble hovedgrepet en flyt som starter bredt og snevrer inn raskt gjennom filter, valg i kartet og direkte detaljvisning.</p>
         </div>
 
         <div class="case-block reveal" id="m-prosess">
           <p class="block-eyebrow">Prosess</p>
-          <h3 class="block-title">Fra brukerflyt til komponent</h3>
-          <div class="process-list">
-            <div class="process-item"><span class="p-num">1.</span><p class="p-text">Kartla primærscenarioet: «Finn alle lisenser eid av selskap X i Nordsjøen» – og designet en brukerflyt rundt det</p></div>
-            <div class="process-item"><span class="p-num">2.</span><p class="p-text">Designet filterarkitektur og lagstruktur for kartet: hvilke lag er på som standard, hvilke er av, og hvordan toggles de</p></div>
-            <div class="process-item"><span class="p-num">3.</span><p class="p-text">Utviklet click-to-inspect-funksjonalitet for sidepanelet – detaljvisning uten å forlate kartflaten</p></div>
-            <div class="process-item"><span class="p-num">4.</span><p class="p-text">Itererte på visuell prioritering: fargekoding av selskaper, ikonografi, lesbarhet mot mørk kartbakgrunn</p></div>
-            <div class="process-item"><span class="p-num">5.</span><p class="p-text">Tett samarbeid med frontend-utviklere – justerte design basert på tekniske muligheter og begrensninger</p></div>
+          <h3 class="block-title">Fra brukerbehov til beslutningsstøtte</h3>
+          <div class="process-phases">
+            <div class="process-phase">
+              <p class="phase-label">Forstå</p>
+              <div class="phase-steps">
+                <div class="phase-step">
+                  <span class="phase-step-num">01</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Avklare primæroppgaven</div>
+                    <div class="phase-step-desc">Jeg definerte hovedoppgaven som rask markedsscreening: filtrer selskaper, les eksponering i kartet og identifiser aktuelle objekter.</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">02</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Prioritere informasjon</div>
+                    <div class="phase-step-desc">Jeg skilte mellom data som må være synlig i første blikk og data som hører hjemme i inspector og detaljpanel.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="process-phase">
+              <p class="phase-label">Designe</p>
+              <div class="phase-steps">
+                <div class="phase-step">
+                  <span class="phase-step-num">03</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Bygge filter- og inspectorflyt</div>
+                    <div class="phase-step-desc">Jeg utformet flyten fra selskapsvalg til inspector, og implementerte den i frontend slik at brukeren kan bore ned i lisensdata uten å miste kartkontekst.</div>
+                  </div>
+                </div>
+                <div class="phase-step">
+                  <span class="phase-step-num">04</span>
+                  <div class="phase-step-content">
+                    <div class="phase-step-title">Finjustere lag og detaljpanel</div>
+                    <div class="phase-step-desc">I tett samarbeid med teamet itererte jeg lagstyring, kontrast og detaljpanel i Svelte/React-komponenter for tydeligere sammenligning og bedre beslutningsgrunnlag.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="process-shot-grid reveal">
             <figure class="process-shot-card">
-              <img class="process-shot" src="pocket 2.png" alt="Portfolio Map prosessbilde 1: filter- og lagstruktur" />
-              <figcaption class="process-shot-caption">Steg 1–2: Filter- og lagstruktur definert for rask screening av operatører, lisens- og produkttyper.</figcaption>
+              <img class="process-shot" src="pocketandre.png" alt="Inspector-panel med lisenskategorier og detaljert dataliste" />
+              <figcaption class="process-shot-caption">Steg 03: Inspector samlet lisensdata i en struktur som støtter rask sammenligning av selskaper og objekter.</figcaption>
             </figure>
             <figure class="process-shot-card">
-              <img class="process-shot" src="pocket1.png" alt="Portfolio Map prosessbilde 2: detaljpanel for valgt lisens" />
-              <figcaption class="process-shot-caption">Steg 3: Click-to-inspect med detaljpanel (operatør, status, datoer og eierskap) uten å forlate kartflaten.</figcaption>
-            </figure>
-            <figure class="process-shot-card">
-              <img class="process-shot" src="pcket3.png" alt="Portfolio Map prosessbilde 3: komplett visning med panel og kart" />
-              <figcaption class="process-shot-caption">Steg 4–5: Visuell prioritering og lesbarhet iterert i komplett visning med venstremeny, kart og høyrepanel samtidig.</figcaption>
+              <img class="process-shot" src="pockettredje.png" alt="Lagstyring i kartapplikasjonen med toggles for geodata" />
+              <figcaption class="process-shot-caption">Steg 04: Lagmenyen gjorde det mulig å slå geodata av og på, slik at brukeren kunne rydde kartet etter analysebehov.</figcaption>
             </figure>
           </div>
         </div>
@@ -1923,25 +1989,19 @@
         <div class="case-block reveal" id="m-losning">
           <p class="block-eyebrow">Løsning</p>
           <h3 class="block-title">Ett klikk fra oversikt til detalj</h3>
-          <p class="block-text">Et interaktivt kart med lagbasert datavisning, filtrerbart per selskap, område og asset-type. Alle datakilder fra NPD er integrert og alltid oppdaterte.</p>
-          <p class="block-text">Klikk på ethvert element åpner et detaljpanel med statistikk, historikk og relaterte assets – uten å forlate kartflaten. Filterpanelet er designet for rask screening: bredt inn, fort ned til det relevante.</p>
-          <div class="solution-visuals reveal">
-            <figure class="solution-shot-card">
-              <img class="solution-shot" src="pocket 2.png" alt="Portfolio Map filter- og lagkontroller i grensesnittet" />
-              <figcaption class="solution-shot-caption">Filter og lagstyring gjør det mulig å snevre inn store datamengder raskt og målrettet.</figcaption>
-            </figure>
-            <figure class="solution-shot-card">
-              <img class="solution-shot" src="pcket3.png" alt="Portfolio Map sidepanel med detaljinnsikt" />
-              <figcaption class="solution-shot-caption">Click-to-inspect åpner detaljpanel med nøkkeldata uten at brukeren mister kartkonteksten.</figcaption>
-            </figure>
+          <p class="block-text">Løsningen ble en modul der brukeren kan gå fra bred porteføljeoversikt til konkret lisensvurdering i ett sammenhengende grensesnitt. Selskapsfiltre, kartlag og metadata arbeider sammen i samme flyt.</p>
+          <p class="block-text">Når et objekt velges, åpnes detaljpanel med nøkkeltall og eierskapsfordeling, mens kartet beholdes aktivt i bakgrunnen. Det gir raskere beslutningsstøtte enn å hoppe mellom separate visninger.</p>
+          <div class="case-visual vis-map reveal">
+            <img class="case-visual-image" src="pocketfjerde.png" alt="Portfolio Map med detaljpanel og visualisering av eierandeler" />
+            <span class="vis-label">Ferdig løsning: kart, selskapsoversikt og detaljpanel med eierfordeling i samme arbeidsflate.</span>
           </div>
         </div>
 
         <div class="case-block reveal" id="m-refleksjon">
           <p class="block-eyebrow">Refleksjon</p>
           <h3 class="block-title">Å prioritere for eksperter er ikke enkelt</h3>
-          <p class="block-text">Å designe for domeneeksperter er annerledes enn å designe for «vanlige» brukere. De vil ha alt – og de vil ha det fort. Å prioritere informasjon for noen som vet nøyaktig hva de trenger er vanskeligere enn å lage noe enkelt fra bunnen av.</p>
-          <p class="block-text">Jeg lærte at «forenkle» ikke betyr «fjerne» – det betyr å organisere slik at det komplekse blir tilgjengelig uten å bli forvirrende. Det krever dyp forståelse av brukerens mentale modell, ikke bare god smak.</p>
+          <p class="block-text">Å designe for domeneeksperter er noe annet enn å designe for et bredt publikum. De vet hva de ser etter, jobber raskt og har lav toleranse for friksjon. Utfordringen ligger ikke i å redusere kompleksitet, men i å prioritere riktig informasjon til riktig tid.</p>
+          <p class="block-text">Jeg lærte at forenkling ikke handler om å fjerne, men om å strukturere det komplekse slik at det blir tilgjengelig og forståelig. Det krever at man forstår hvordan brukeren faktisk jobber, ikke bare hvordan noe ser ut.</p>
         </div>
       </div>
     </div>
@@ -1952,7 +2012,7 @@
     <div class="contact-inner">
       <div class="contact-left reveal">
         <h2 class="contact-heading">La oss<br>lage noe<br><em>bra.</em></h2>
-        <p class="contact-text">Jeg er tilgjengelig for roller der frontend og UX henger tett sammen – og der det er en fordel at én person kan både designe og implementere løsningen.</p>
+        <p class="contact-text">Jeg er tilgjengelig for roller der frontend og UX henger tett sammen, og der det er en fordel at én person kan både designe og implementere løsningen.</p>
       </div>
       <div class="contact-right reveal reveal-delay-1">
         <a class="contact-btn" href="mailto:karinalyssand@live.com">
