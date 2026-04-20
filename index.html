@@ -23,6 +23,7 @@
       --accent-lt:  #E8F0EB;
       --border:     #D5D1CA;
       --white:      #FDFBF7;
+      --nav-offset: 88px;
       --serif:      'Lora', Georgia, serif;
       --sans:       'DM Sans', system-ui, sans-serif;
       --body:       'DM Sans', system-ui, sans-serif;
@@ -56,7 +57,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 500;
+      z-index: 700;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -174,12 +175,18 @@
     .hero-word-wrap {
       display: inline-block;
       overflow: hidden;
-      vertical-align: bottom;
+      vertical-align: -0.40em;
+      box-sizing: content-box;
+      line-height: 1.22;
+      height: 1.22em;
+      padding-top: 0.06em;
+      padding-bottom: 0.16em;
       opacity: 0;
       animation: slideIn .001s .5s forwards;
     }
     .hero-word {
       display: block;
+      line-height: 1.22;
       color: var(--accent);
       font-style: italic;
       animation: none;
@@ -207,7 +214,7 @@
       color: var(--ink2);
       max-width: 480px;
       line-height: 1.8;
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       opacity: 0;
       animation: slideIn .6s .65s cubic-bezier(.16,1,.3,1) forwards;
     }
@@ -1027,10 +1034,11 @@
     /* Sticky vertical timeline */
     .timeline-nav {
       position: sticky;
-      top: 0;
-      height: 100vh;
+      top: var(--nav-offset);
+      height: calc(100vh - var(--nav-offset));
       display: flex;
       align-items: center;
+      z-index: 0;
     }
     .tl-track {
       position: relative;
@@ -1388,14 +1396,14 @@
 
   <!-- NAV -->
   <nav id="main-nav">
-    <a class="nav-logo" href="#hero">Karina<span>.</span></a>
+    <a class="nav-logo" href="#hero">Karina Bygstad Lyssand<span>.</span></a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#cases">Prosjekter</a></li>
         <li><a href="#about">Om meg</a></li>
         <li><a href="#contact">Kontakt</a></li>
       </ul>
-      <a class="nav-cv" href="karina-lyssand-cv.pdf" download>Last ned CV ↓</a>
+      <a class="nav-cv" href="cv2026.pdf" download>Last ned CV ↓</a>
     </div>
   </nav>
 
@@ -1427,24 +1435,20 @@
           <span class="ticker-item">Svelte</span>
           <span class="ticker-item">Figma</span>
           <span class="ticker-item">Informasjonsarkitektur</span>
-          <span class="ticker-item">HTML/CSS</span>
           <span class="ticker-item">Prototyping</span>
           <span class="ticker-item">Universell utforming</span>
           <span class="ticker-item">Designsystemer</span>
           <span class="ticker-item">Brukerinnsikt</span>
-          <span class="ticker-item">SvelteKit</span>
           <span class="ticker-item">Datavisualisering</span>
           <span class="ticker-item">Frontend</span>
           <span class="ticker-item">UX Design</span>
           <span class="ticker-item">Svelte</span>
           <span class="ticker-item">Figma</span>
           <span class="ticker-item">Informasjonsarkitektur</span>
-          <span class="ticker-item">HTML/CSS</span>
           <span class="ticker-item">Prototyping</span>
           <span class="ticker-item">Universell utforming</span>
           <span class="ticker-item">Designsystemer</span>
           <span class="ticker-item">Brukerinnsikt</span>
-          <span class="ticker-item">SvelteKit</span>
           <span class="ticker-item">Datavisualisering</span>
         </div>
       </div>
@@ -2011,8 +2015,8 @@
   <section id="contact">
     <div class="contact-inner">
       <div class="contact-left reveal">
-        <h2 class="contact-heading">La oss<br>lage noe<br><em>bra.</em></h2>
-        <p class="contact-text">Jeg er tilgjengelig for roller der frontend og UX henger tett sammen, og der det er en fordel at én person kan både designe og implementere løsningen.</p>
+        <h2 class="contact-heading">Åpen for nye <em>muligheter</em></h2>
+        <p class="contact-text">Jeg ser etter en rolle der jeg kan jobbe tett på både design og kode, og bidra i hele prosessen fra innsikt til ferdig løsning.</p>
       </div>
       <div class="contact-right reveal reveal-delay-1">
         <a class="contact-btn" href="mailto:karinalyssand@live.com">
@@ -2029,7 +2033,7 @@
           </div>
           <span class="contact-btn-arrow">↗</span>
         </a>
-        <a class="contact-btn" href="karina-lyssand-cv.pdf" download>
+        <a class="contact-btn" href="cv2026.pdf" download>
           <div>
             <div class="contact-btn-label">Last ned CV</div>
             <div class="contact-btn-sub">PDF, oppdatert 2025</div>
