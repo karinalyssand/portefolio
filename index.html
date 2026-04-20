@@ -1361,34 +1361,279 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
-      nav { padding: 1.25rem 1.5rem; }
-      nav.scrolled { padding: .85rem 1.5rem; }
+      .case-block,
+      .artifact-card,
+      .artifact-card-body,
+      .process-phase,
+      .process-phases {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      .case-section-full,
+      .case-content-wrap,
+      .case-content-wrap > div {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      .case-section-full .artifact-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .45rem;
+      }
+      .case-section-full .artifact-card-label {
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+      }
+      .case-section-full .artifact-card-body,
+      .case-section-full .block-text,
+      .case-section-full .phase-step-desc {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      .case-section-full .phase-step {
+        gap: .75rem;
+        padding: .65rem 0;
+      }
+      .case-section-full .phase-step-title {
+        font-size: .85rem;
+        line-height: 1.35;
+      }
+      .case-section-full .phase-step-desc {
+        font-size: .8rem;
+        line-height: 1.55;
+      }
+      .case-section-full .concept-visual-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-section-full .annotation-screen,
+      .case-section-full .annotation-layout > * {
+        min-width: 0;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      nav { padding: 1rem 1.25rem; }
+      nav.scrolled { padding: .75rem 1.25rem; }
       .nav-links { display: none; }
-      .hero-inner { padding: 0 1.5rem; }
-      .hero-bottom { padding: 1.5rem; }
-      .hero-title { font-size: 3rem; }
-      .hero-row { flex-direction: column; align-items: flex-start; gap: 2rem; }
-      .hero-stats { gap: 2rem; }
-      .section { padding: 5rem 1.5rem; }
+      .nav-logo { font-size: .85rem; }
+      .nav-cv { font-size: .65rem; padding: .4rem .75rem; letter-spacing: .04em; }
+
+      #hero { padding-top: 5rem; }
+      .hero-inner { padding: 0 1.25rem; }
+      .hero-title { font-size: 2.6rem; letter-spacing: -.015em; }
+      .hero-sub { font-size: .92rem; margin-top: 1.5rem; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; gap: .75rem; margin-top: 2rem; }
+      .btn { width: 100%; justify-content: center; }
+      .hero-bottom { border-top: 1px solid var(--border); }
+
+      .section { padding: 4rem 1.25rem; }
+
+      .cases-grid-new { grid-template-columns: 1fr; gap: 12px; }
+      .case-card-info { padding: 1rem 1.25rem; }
+      .case-card-title { font-size: .95rem; }
+
       .about-bento {
         grid-template-columns: 1fr;
         grid-template-areas:
           "profile"
           "quote"
           "skills";
+        gap: 12px;
       }
-      .case-content-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
-      .timeline-nav { position: static; height: auto; }
-      .tl-track { height: auto; flex-direction: row; flex-wrap: wrap; gap: .5rem; justify-content: flex-start; }
+      .bento-philosophy { width: 100%; }
+      .bento-skills { width: 100%; }
+      .about-bento .bento-card { padding: 1.25rem; }
+      .bento-profile-head { flex-direction: row; align-items: center; text-align: left; margin-bottom: 1rem; }
+      .bento-profile-head > div { align-items: flex-start; }
+
+      .case-hero { padding: 3rem 1.25rem 0; }
+      .case-hero-title { font-size: 1.7rem; }
+      .case-hero-sub { font-size: .9rem; }
+      .case-meta-row { flex-direction: column; gap: 1rem; padding: 1.5rem 0; }
+      .case-meta-item {
+        padding-right: 0;
+        margin-right: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 1rem;
+      }
+      .case-meta-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+      .case-content-wrap {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 2rem 1.25rem;
+      }
+      .timeline-nav {
+        position: static;
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      .tl-track {
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: .5rem;
+        justify-content: flex-start;
+      }
       .tl-track::before { display: none; }
-      .tl-item { padding: .35rem .75rem; border: 1px solid var(--border); border-radius: 20px; gap: .4rem; }
-      .tl-icon { width: 22px; height: 22px; font-size: .55rem; }
+      .tl-item {
+        padding: .35rem .875rem;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        gap: .4rem;
+        background: var(--bg);
+      }
+      .tl-item.active {
+        border-color: var(--accent);
+        background: var(--accent-lt);
+      }
+      .tl-item.active .tl-label { color: var(--accent); }
+      .tl-icon { display: none; }
       .tl-num { display: none; }
-      .process-shot-grid { grid-template-columns: 1fr; }
-      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .case-hero { padding: 4rem 1.5rem 0; }
-      .case-meta-row { gap: 1.5rem; }
-      .case-meta-item { padding-right: 1.5rem; margin-right: 1.5rem; }
+      .tl-label { font-size: .72rem; }
+
+      .case-block {
+        margin-bottom: 3rem;
+        scroll-margin-top: 80px;
+      }
+      .block-title { font-size: 1.25rem; }
+      .block-text { font-size: .9rem; }
+      .pull-quote { padding: 1rem 1.25rem; }
+      .pull-quote p { font-size: 1rem; }
+
+      .before-after {
+        grid-template-columns: 1fr;
+        overflow: hidden;
+      }
+      .ba-panel {
+        width: 100%;
+        max-width: 100%;
+      }
+      .ba-panel.new {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+      .ba-shot {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .ba-caption { grid-template-columns: 1fr; }
+      .ba-cap-txt:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .process-phases { gap: 1.5rem; }
+      .artifact-card-body { padding: .75rem; }
+      .artifact-card-body > div {
+        grid-template-columns: 1fr !important;
+        max-width: 100%;
+      }
+      .comp-analysis {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .audience-cards { grid-template-columns: 1fr; }
+      .annotation-layout { grid-template-columns: 1fr; }
+      .annotation-notes { display: none; }
+      .solution-visuals {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .solution-shot {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .process-shot-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .process-shot {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .process-shot-card { width: 100%; }
+      .artifact-card-body > div[style*="grid-template-columns: 130px"],
+      .artifact-card-body div[style*="grid-template-columns: 130px"] {
+        min-width: 480px !important;
+        width: max-content !important;
+      }
+
+      .nav-concepts {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-concept {
+        padding: .75rem;
+        width: 100%;
+      }
+      .nav-concept img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 4rem 1.25rem;
+      }
+      .contact-heading { font-size: 2.5rem; }
+      .contact-btn { padding: 1rem 1.25rem; }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5rem;
+        padding: 1.5rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .artifact-card { overflow: hidden; }
+      .artifact-card-body {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .case-content-wrap {
+        padding: 1.5rem 1rem;
+      }
+      .case-block {
+        margin-bottom: 2.5rem;
+      }
+      .block-title { font-size: 1.1rem; }
+      .block-text { font-size: .86rem; line-height: 1.75; }
+      .pull-quote { padding: .9rem 1rem; }
+      .pull-quote p { font-size: .95rem; }
+      .artifact-card-header { padding: .55rem .75rem; }
+      .artifact-card-body { padding: .65rem !important; }
+      .phase-step-num {
+        width: 20px;
+        height: 20px;
+        font-size: .62rem;
+      }
+      .before-after { grid-template-columns: 1fr; }
+      .ba-panel.new {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+      .ba-caption { grid-template-columns: 1fr; }
+      .ba-cap-txt:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .artifact-card-body > div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1396,7 +1641,7 @@
 
   <!-- NAV -->
   <nav id="main-nav">
-    <a class="nav-logo" href="#hero">Karina Bygstad Lyssand<span>.</span></a>
+    <a class="nav-logo" href="#hero">Karina<span>.</span></a>
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#cases">Prosjekter</a></li>
@@ -1646,7 +1891,7 @@
           <span class="artifact-card-phase">Forstå</span>
         </div>
         <div class="artifact-card-body">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="display:grid;grid-template-columns: 1fr 1fr;gap:8px">
             <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.625rem .75rem">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
                 <span style="font-size:.78rem;font-weight:500;color:var(--ink)">Forside</span>
@@ -1690,7 +1935,8 @@
           <span class="artifact-card-phase">Forstå</span>
         </div>
         <div class="artifact-card-body">
-          <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;border:1px solid var(--border);border-radius:4px;overflow:hidden;font-size:.72rem">
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%;">
+            <div style="display:grid;grid-template-columns: 130px 1fr 1fr 1fr;border:1px solid var(--border);border-radius:4px;overflow:hidden;font-size:.72rem;min-width:720px">
             <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Spørsmål vi stilte</div>
             <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Atlassian</div>
             <div style="background:var(--bg2);padding:.5rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);border-right:1px solid var(--border)">Miter</div>
@@ -1710,6 +1956,7 @@
             <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-right:1px solid var(--border);line-height:1.45">Del opp etter målgruppe tidlig</div>
             <div style="background:var(--bg);padding:.625rem .75rem;color:var(--accent);font-weight:500;border-right:1px solid var(--border);line-height:1.45">Start med problem, ikke funksjon</div>
             <div style="background:var(--bg);padding:.625rem .75rem;color:var(--ink2);line-height:1.45">Unngå flat produktliste uten kontekst</div>
+            </div>
           </div>
         </div>
       </div>
